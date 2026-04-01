@@ -1,0 +1,27 @@
+---
+description: Nutrilis Kotlin server architecture and API conventions
+globs: src/main/kotlin/**/*.kt
+alwaysApply: false
+---
+
+# Nutrilis Kotlin Server
+
+- 服务端技术栈固定为 Kotlin + Spring Boot 3.x + Gradle Kotlin DSL，当前阶段以 Spring Validation、Spring Security、内存存储为主，后续如需持久化再引入 PostgreSQL/Flyway，不要在 MVP 阶段把数据库依赖硬塞回去。
+- 目录按业务域拆分，当前至少保持：`common`、`config`、`auth`、`content`。每个业务域内部明确拆成 `controller / data / domain / service / entity`。
+- `controller` 只做参数接收、鉴权注解和响应转换；业务规则必须进入 `service`；领域语义和共享模型进入 `domain`；内存仓储、seed 数据、repository 进入 `data`；内部持久化对象进入 `entity`。
+- 产品边界严格遵守设计规范：Nutrilis 是中医养生科普内容平台，不实现电商、订单、支付、库存、广告、商家导流、预约购买等能力。
+- API 统一前缀为 `/api/v1`，返回体统一为 `data + meta + error` 风格；错误码、字段校验信息、追踪 id 使用统一响应模型。
+- 首版就要覆盖客户端未来需要的接口域：OTP 发送、OTP 校验、注销、刷新令牌、首页聚合内容、日常养护专题、食谱列表/详情、理疗列表/详情、体质问卷/结果，以及后续可扩展的用户中心接口。
+- 认证方式固定为手机号/邮箱 OTP，登录即注册。当前阶段 OTP 固定校验 `111111`，但代码结构必须保留 `OtpSender`、`OtpTicketRepository`、`UserRepository`、`TokenService`、`AuthService` 这些可替换层。
+- 领域模型命名使用业务语义而不是页面语义，例如 `Recipe`, `TherapyMethod`, `DailyCareTopic`, `ConstitutionQuiz`, `FavoriteItem`；request/response DTO 必须与 domain model 分离。
+- 所有内容实体都必须显式包含 `title`、`summary`、`source`、`locale`、`contraindications`、`disclaimer` 等科普关键信息；禁忌和免责声明不得省略。
+- 国际化从数据模型层开始设计。需要支持 `zh-CN` 和 `en`，禁止把双语文案硬编码在 controller 中拼接。
+- 食谱和理疗详情接口必须返回可直接驱动客户端的结构化字段，例如功效、适用体质、禁忌、步骤、注意事项、来源标签、收藏状态，而不是把整段富文本塞给前端自行解析。
+- 首页接口应提供聚合视图模型，至少覆盖 Banner、快捷入口、推荐内容和免责声明文案，避免客户端首屏依赖多次串行请求。
+- 问卷相关接口分为“题目配置”“提交答案”“结果说明”三类，不在 controller 中写打分算法；体质判定逻辑单独沉淀为 `QuizService` 或更细的 domain/service 层。
+- 首页、食谱、理疗、日常养护等 seed 内容统一放在 `content/data` 与 `content/entity`，不要把大段静态内容直接堆进 controller。
+- 当前阶段公开内容接口默认只读，用户态接口按需鉴权；显示层格式化交给客户端处理。
+- 当需要引入数据库时，再把 `data` 下的 in-memory repository 平滑替换为 JPA/Flyway 实现，不要推翻 controller/service/domain 分层。
+- 代码风格要求空安全优先、构造注入优先、不可变对象优先；禁止使用全局可变状态保存用户会话或请求上下文。
+- 每个业务域至少补齐 controller/service/domain test 中的一层自动化测试；尤其是鉴权、问卷判定、收藏幂等、错误响应格式要有覆盖。
+- 医学相关内容只做科普，不得输出“诊断”“治疗方案保证”“疗效承诺”类措辞；任何 AI 或规则推导结果都必须附带非医疗免责声明。

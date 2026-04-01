@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Nutrilis - 理疗详情</title>
+<script src="https://modao.cc/agent-py/static/source/js/tailwindcss.3.4.3.js"></script>
+<script src="https://modao.cc/agent-py/static/source/js/iconify-icon.min.1.0.7.js"></script>
+<style>
+        :root { --primary: #A1C298; --secondary: #6B4F4F; --accent: #D4B996; --bg: #F9F9F7; }
+        .app-container { width: 375px; height: 812px; background: #FFF; border: 8px solid #000; border-radius: 40px; position: relative; overflow: hidden; display: flex; flex-direction: column; }
+        .scrollbox { flex: 1; overflow-y: auto; padding-bottom: 40px; }
+        .scrollbox::-webkit-scrollbar { display: none; }
+        .clickable { transition: all 0.2s; cursor: pointer; }
+        .clickable:active { transform: scale(0.95); opacity: 0.8; }
+        .glass-header { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(10px); position: sticky; top: 0; z-index: 50; }
+        .info-card { background: #F9F9F7; border-radius: 20px; padding: 20px; border: 1px solid #F0F0EE; }
+    </style>
+</head>
+<body class="bg-gray-100 flex justify-center items-center min-h-screen">
+<div class="app-container">
+<header class="glass-header h-[88px] pt-10 px-4 flex items-center border-b border-gray-100">
+<a class="w-10 h-10 flex items-center justify-center rounded-full bg-gray-50 clickable" href="therapy.html">
+<iconify-icon class="text-xl text-gray-800" icon="solar:alt-arrow-left-linear"></iconify-icon>
+</a>
+<h1 class="ml-4 font-bold text-lg text-gray-800">理疗详情</h1>
+<button class="ml-auto w-10 h-10 flex items-center justify-center rounded-full bg-gray-50 clickable" id="favBtn">
+<iconify-icon class="text-xl text-gray-400" icon="solar:heart-linear" id="heartIcon"></iconify-icon>
+</button>
+</header>
+<div class="scrollbox">
+<div class="p-6">
+<!-- Title & Principles -->
+<div class="mb-8 text-center">
+<div class="inline-block px-3 py-1 bg-[#A1C298]/10 text-[#A1C298] text-[10px] font-bold rounded-full mb-3 uppercase tracking-widest">Acupressure</div>
+<h2 class="text-2xl font-black text-gray-800 mb-4" id="therapyName">合谷穴：春季排毒按摩</h2>
+<p class="text-sm text-gray-500 leading-relaxed px-4">
+                        通过刺激大肠经之原穴“合谷”，调节气血运化，促进面部微循环，达到清热排毒之效。
+                    </p>
+</div>
+<div class="space-y-6">
+<div class="info-card">
+<h3 class="font-bold text-[#6B4F4F] mb-3 flex items-center gap-2">
+<iconify-icon class="text-[#A1C298]" icon="solar:shield-check-bold"></iconify-icon>
+                            适宜情况
+                        </h3>
+<p class="text-xs text-gray-600 leading-relaxed">
+                            面色蜡黄、春季容易“上火”、经常牙痛、头痛或长期使用电子设备导致的视力疲劳者。
+                        </p>
+</div>
+<div class="info-card border-red-50 bg-red-50/10">
+<h3 class="font-bold text-red-800 mb-3 flex items-center gap-2">
+<iconify-icon class="text-red-400" icon="solar:danger-bold"></iconify-icon>
+                            禁忌人群
+                        </h3>
+<p class="text-xs text-red-800/70 leading-relaxed">
+                            孕妇禁用（合谷具有引产风险）；局部皮肤有破损、溃烂者；极度虚弱或过饱过饥者。
+                        </p>
+</div>
+<div class="info-card">
+<h3 class="font-bold text-[#6B4F4F] mb-3 flex items-center gap-2">
+<iconify-icon class="text-[#A1C298]" icon="solar:checklist-bold"></iconify-icon>
+                            注意事项
+                        </h3>
+<ul class="space-y-2 text-xs text-gray-600">
+<li>• 按压时需产生明显的酸胀感为宜。</li>
+<li>• 每次按压3-5分钟，左右手交替进行。</li>
+<li>• 建议在饭后1小时进行，配合深呼吸。</li>
+</ul>
+</div>
+<div class="mt-4">
+<h3 class="font-bold text-gray-800 mb-4 px-2">科普说明</h3>
+<img class="w-full h-40 object-cover rounded-2xl mb-4" src="https://modao.cc/agent-py/media/generated_images/2026-03-26/f923c39c2cb143feb491fea6a172e6e9.jpg"/>
+<p class="text-xs text-gray-500 leading-relaxed px-2">
+                            合谷穴位于手背，第1、2掌骨间，当第2掌骨桡侧的中点处。俗称“虎口”。它是人体极其重要的止痛及疏散风热的要穴。在日常保健中，不仅能舒缓局部肌肉压力，更能调理全身气机。
+                        </p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script>
+        const favBtn = document.getElementById('favBtn');
+        const heartIcon = document.getElementById('heartIcon');
+        let isFaved = false;
+        favBtn.onclick = () => {
+            isFaved = !isFaved;
+            heartIcon.setAttribute('icon', isFaved ? 'solar:heart-bold' : 'solar:heart-linear');
+            heartIcon.style.color = isFaved ? '#FF4D4D' : '#9CA3AF';
+        };
+
+        const params = new URLSearchParams(window.location.search);
+        if(params.get('type') === 'moxibustion') {
+             document.getElementById('therapyName').innerText = '艾灸调理：脾胃温养';
+        }
+    </script>
+</body>
+</html>

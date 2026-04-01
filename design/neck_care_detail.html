@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>颈椎呵护详情 - Nutrilis</title>
+<script src="https://modao.cc/agent-py/static/source/js/tailwindcss.3.4.3.js"></script>
+<script src="https://modao.cc/agent-py/static/source/js/iconify-icon.min.1.0.7.js"></script>
+<style>
+        :root { --primary: #A1C298; --secondary: #6B4F4F; --accent: #D4B996; --bg: #F9F9F7; }
+        .app-container { width: 375px; height: 812px; background: var(--bg); border: 8px solid #000; border-radius: 40px; position: relative; overflow: hidden; display: flex; flex-direction: column; margin: auto; }
+        .scrollbox { flex: 1; overflow-y: auto; padding-bottom: 40px; }
+        .scrollbox::-webkit-scrollbar { display: none; }
+        .btn-back { width: 40px; height: 40px; border-radius: 12px; background: white; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+        .section-card { background: white; border-radius: 24px; padding: 20px; margin-bottom: 16px; border: 1px solid rgba(161, 194, 152, 0.2); }
+        .clickable:active { transform: scale(0.95); }
+    </style>
+</head>
+<body class="bg-gray-100 flex justify-center items-center min-h-screen">
+<div class="app-container">
+<!-- Sticky Header -->
+<header class="px-6 pt-12 pb-4 flex justify-between items-center bg-white/80 backdrop-blur-md z-10">
+<a class="btn-back clickable" href="therapy.html">
+<iconify-icon class="text-xl text-gray-700" icon="solar:alt-arrow-left-linear"></iconify-icon>
+</a>
+<h1 class="text-lg font-bold text-gray-800 lang-zh">颈椎呵护</h1>
+<h1 class="text-lg font-bold text-gray-800 lang-en hidden">Neck Care</h1>
+<button class="btn-back clickable" onclick="toggleFavorite(this)">
+<iconify-icon class="text-xl text-gray-400" icon="solar:heart-linear" id="fav-icon"></iconify-icon>
+</button>
+</header>
+<div class="scrollbox px-6 pt-4">
+<!-- Hero Image -->
+<div class="w-full h-48 rounded-3xl overflow-hidden mb-6 shadow-sm">
+<img alt="Neck Care" class="w-full h-full object-cover" src="https://modao.cc/agent-py/media/generated_images/2026-03-26/f8435d8e20234a9b9a69ef498a183d29.jpg"/>
+</div>
+<div class="section-card">
+<h2 class="text-[#6B4F4F] font-bold mb-2 flex items-center gap-2">
+<iconify-icon class="text-[#A1C298]" icon="solar:magnifer-zoom-in-bold"></iconify-icon>
+<span class="lang-zh">基本原理</span><span class="lang-en hidden">Principles</span>
+</h2>
+<p class="text-gray-500 text-sm leading-relaxed lang-zh">通过拉伸颈部深层肌肉（斜角肌、下颌下肌群）与点按大椎、风池穴，缓解因长期低头导致的颈椎生理曲度变直及神经压迫。</p>
+<p class="text-gray-500 text-sm leading-relaxed lang-en hidden">Relieves neck stiffness and nerve compression caused by long-term head lowering by stretching deep muscles and pressing acupoints.</p>
+</div>
+<div class="section-card">
+<h2 class="text-[#6B4F4F] font-bold mb-2 flex items-center gap-2">
+<iconify-icon class="text-[#A1C298]" icon="solar:check-circle-bold"></iconify-icon>
+<span class="lang-zh">适宜情况</span><span class="lang-en hidden">Indications</span>
+</h2>
+<ul class="text-sm text-gray-500 space-y-1 list-disc list-inside">
+<li class="lang-zh">办公室人群“手机颈”</li>
+<li class="lang-en hidden">Tech neck/Office workers</li>
+<li class="lang-zh">肩颈肌肉僵硬、酸痛</li>
+<li class="lang-en hidden">Shoulder and neck stiffness</li>
+<li class="lang-zh">轻度颈源性头晕</li>
+<li class="lang-en hidden">Mild cervical dizziness</li>
+</ul>
+</div>
+<div class="section-card bg-red-50/30 border-red-100">
+<h2 class="text-red-700 font-bold mb-2 flex items-center gap-2">
+<iconify-icon icon="solar:danger-bold"></iconify-icon>
+<span class="lang-zh">禁忌人群</span><span class="lang-en hidden">Contraindications</span>
+</h2>
+<p class="text-xs text-red-600/80 leading-relaxed lang-zh">脊髓型颈椎病、急性颈部外伤、骨质疏松严重者、颈部有不明肿块者禁止暴力揉按。</p>
+<p class="text-xs text-red-600/80 leading-relaxed lang-en hidden">Spinal cord type cervical spondylosis, acute injury, severe osteoporosis.</p>
+</div>
+<div class="section-card border-[#D4B996]/30">
+<h2 class="text-[#6B4F4F] font-bold mb-2 flex items-center gap-2">
+<iconify-icon class="text-[#D4B996]" icon="solar:notes-bold"></iconify-icon>
+<span class="lang-zh">注意事项</span><span class="lang-en hidden">Precautions</span>
+</h2>
+<p class="text-sm text-gray-500 lang-zh">动作应缓慢平稳，不宜追求“咔哒”响声；练习后注意保暖，避免寒气通过大椎穴入侵。</p>
+<p class="text-sm text-gray-500 lang-en hidden">Move slowly; do not force joint 'clicks'; keep warm after practice.</p>
+</div>
+<div class="p-4 bg-[#D4B996]/10 rounded-2xl border-l-4 border-[#D4B996]">
+<h4 class="text-xs font-bold text-[#6B4F4F] mb-1">💡 <span class="lang-zh">科普小知识</span><span class="lang-en hidden">Health Tip</span></h4>
+<p class="text-[11px] text-[#6B4F4F]/80 lang-zh">低头60度时，颈椎承受的压力约27公斤，相当于背着一个7岁的孩子。</p>
+<p class="text-[11px] text-[#6B4F4F]/80 lang-en hidden">Tilting your head 60° puts about 27kg of pressure on your neck.</p>
+</div>
+</div>
+<button class="fixed bottom-10 right-10 w-12 h-12 bg-[#6B4F4F] text-white rounded-full shadow-lg flex items-center justify-center text-xs font-bold z-30" onclick="toggleLang()">
+            EN/中
+        </button>
+</div>
+<script>
+        function toggleFavorite(btn) {
+            const icon = document.getElementById('fav-icon');
+            if (icon.getAttribute('icon') === 'solar:heart-linear') {
+                icon.setAttribute('icon', 'solar:heart-bold');
+                icon.classList.remove('text-gray-400');
+                icon.classList.add('text-red-500');
+            } else {
+                icon.setAttribute('icon', 'solar:heart-linear');
+                icon.classList.remove('text-red-500');
+                icon.classList.add('text-gray-400');
+            }
+        }
+        function toggleLang() {
+            const zh = document.querySelectorAll('.lang-zh');
+            const en = document.querySelectorAll('.lang-en');
+            zh.forEach(el => el.classList.toggle('hidden'));
+            en.forEach(el => el.classList.toggle('hidden'));
+        }
+    </script>
+</body>
+</html>

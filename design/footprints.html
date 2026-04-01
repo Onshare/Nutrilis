@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Nutrilis - 我的足迹</title>
+<script src="https://modao.cc/agent-py/static/source/js/tailwindcss.3.4.3.js"></script>
+<script src="https://modao.cc/agent-py/static/source/js/iconify-icon.min.1.0.7.js"></script>
+<style>
+        :root { --primary: #A1C298; --secondary: #6B4F4F; --accent: #D4B996; --bg: #F9F9F7; }
+        .app-container { width: 375px; height: 812px; background: #FFF; border: 8px solid #000; border-radius: 40px; position: relative; overflow: hidden; display: flex; flex-direction: column; }
+        .scrollbox { flex: 1; overflow-y: auto; padding-bottom: 40px; }
+        .scrollbox::-webkit-scrollbar { display: none; }
+        .clickable { transition: all 0.2s; cursor: pointer; }
+        .clickable:active { transform: scale(0.95); opacity: 0.8; }
+        .timeline-line { position: absolute; left: 24px; top: 0; bottom: 0; width: 0.5px; background: #EEE; }
+        .timeline-dot { position: absolute; left: 20px; top: 24px; width: 9px; height: 9px; background: var(--primary); border: 2px solid white; border-radius: 50%; box-shadow: 0 0 0 4px rgba(161, 194, 152, 0.1); }
+    </style>
+</head>
+<body class="bg-gray-100 flex justify-center items-center min-h-screen">
+<div class="app-container">
+<header class="h-[88px] pt-10 px-4 flex items-center border-b border-gray-100 sticky top-0 bg-white/80 backdrop-blur-md z-50">
+<a class="w-10 h-10 flex items-center justify-center rounded-full bg-gray-50 clickable" href="profile.html">
+<iconify-icon class="text-xl text-gray-800" icon="solar:alt-arrow-left-linear"></iconify-icon>
+</a>
+<h1 class="ml-4 font-bold text-lg text-gray-800">健康足迹</h1>
+</header>
+<div class="scrollbox relative">
+<div class="timeline-line"></div>
+<div class="px-12 py-6">
+<!-- Date Group -->
+<div class="mb-4 text-[10px] font-black uppercase text-[#6B4F4F] opacity-40 flex items-center gap-2">
+<span>今天</span>
+<div class="h-px bg-gray-100 flex-1"></div>
+</div>
+<!-- Event 1 -->
+<div class="relative mb-8 group clickable">
+<div class="timeline-dot"></div>
+<a class="block bg-white p-4 rounded-3xl border border-gray-50 shadow-sm transition-shadow group-hover:shadow-md" href="recipe-detail.html">
+<div class="flex items-center gap-4">
+<img class="w-16 h-16 rounded-2xl object-cover" src="https://modao.cc/agent-py/media/generated_images/2026-03-26/2b414f647ffa4c68a8adf7bfdb8cdd9d.jpg"/>
+<div class="flex-1">
+<h4 class="text-sm font-bold text-gray-800">查阅: 百合马蹄羹</h4>
+<p class="text-[10px] text-gray-400 mt-1 uppercase tracking-widest font-bold">14:32 · 食疗百科</p>
+</div>
+</div>
+</a>
+</div>
+<!-- Event 2 -->
+<div class="relative mb-8 group clickable">
+<div class="timeline-dot bg-[#5AC8FA]"></div>
+<a class="block bg-white p-4 rounded-3xl border border-gray-50 shadow-sm transition-shadow group-hover:shadow-md" href="therapy_detail.html">
+<div class="flex items-center gap-4">
+<img class="w-16 h-16 rounded-2xl object-cover" src="https://modao.cc/agent-py/media/generated_images/2026-03-26/f923c39c2cb143feb491fea6a172e6e9.jpg"/>
+<div class="flex-1">
+<h4 class="text-sm font-bold text-gray-800">练习: 合谷穴按摩</h4>
+<p class="text-[10px] text-gray-400 mt-1 uppercase tracking-widest font-bold">09:15 · 理疗修复</p>
+</div>
+</div>
+</a>
+</div>
+<!-- Date Group -->
+<div class="mb-4 text-[10px] font-black uppercase text-[#6B4F4F] opacity-40 flex items-center gap-2">
+<span>昨天</span>
+<div class="h-px bg-gray-100 flex-1"></div>
+</div>
+<!-- Event 3 -->
+<div class="relative mb-8 group clickable">
+<div class="timeline-dot bg-[#D4B996]"></div>
+<a class="block bg-white p-4 rounded-3xl border border-gray-50 shadow-sm transition-shadow group-hover:shadow-md" href="quiz.html">
+<div class="flex items-center gap-4">
+<div class="w-16 h-16 rounded-2xl bg-orange-50 flex items-center justify-center">
+<iconify-icon class="text-3xl text-orange-200" icon="solar:test-tube-bold"></iconify-icon>
+</div>
+<div class="flex-1">
+<h4 class="text-sm font-bold text-gray-800">完成: 体质综合自测</h4>
+<p class="text-[10px] text-gray-400 mt-1 uppercase tracking-widest font-bold">18:00 · 健康测评</p>
+</div>
+</div>
+</a>
+</div>
+</div>
+<p class="text-center text-[10px] text-gray-200 font-bold tracking-widest uppercase mb-12">No More History</p>
+</div>
+</div>
+</body>
+</html>

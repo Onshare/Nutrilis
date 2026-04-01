@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Nutrilis - 启动页</title>
+<script src="https://modao.cc/agent-py/static/source/js/tailwindcss.3.4.3.js"></script>
+<script src="https://modao.cc/agent-py/static/source/js/iconify-icon.min.1.0.7.js"></script>
+<style>
+        @keyframes logoScale {
+            0% { transform: scale(0.8); opacity: 0; }
+            50% { transform: scale(1.1); opacity: 1; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        .logo-anim { animation: logoScale 1.5s ease-out forwards; }
+        .fade-out { transition: opacity 0.8s ease-in; opacity: 0; }
+    </style>
+</head>
+<body class="bg-[#F2F2F7] flex justify-center items-center min-h-screen">
+<!-- Mobile Container -->
+<div class="w-[375px] h-[812px] bg-white rounded-[40px] shadow-2xl overflow-hidden relative border-[8px] border-black" id="app">
+<!-- Main Splash Content -->
+<div class="h-full flex flex-col items-center justify-center bg-gradient-to-b from-white to-[#F2F2F7]">
+<!-- Logo Section -->
+<div class="logo-anim flex flex-col items-center">
+<div class="w-24 h-24 bg-[#4CD964] rounded-2xl flex items-center justify-center shadow-lg mb-6">
+<iconify-icon class="text-white text-6xl" icon="solar:leaf-bold"></iconify-icon>
+</div>
+<h1 class="text-3xl font-bold tracking-tight text-[#000000]">Nutrilis</h1>
+<p class="mt-2 text-[#8E8E93] text-sm tracking-widest uppercase">Nourish Your Life</p>
+<div class="mt-1 text-[#4CD964] text-xs font-medium">生命与营养的滋养</div>
+</div>
+<!-- Version Info -->
+<div class="absolute bottom-12 flex flex-col items-center">
+<div class="flex items-center space-x-2 text-[#C7C7CC] text-xs mb-1">
+<span>Version 1.0</span>
+<span class="w-1 h-1 bg-[#C7C7CC] rounded-full"></span>
+<span>2026.03.26</span>
+</div>
+<p class="text-[#8E8E93] text-[10px]">© 2026 Nutrilis UI Design System</p>
+</div>
+</div>
+</div>
+<script>
+        // Automatic redirect to Home page after 2.5s
+        setTimeout(() => {
+            const app = document.getElementById('app');
+            app.classList.add('fade-out');
+            setTimeout(() => {
+                window.location.href = 'index.html';
+            }, 800);
+        }, 2500);
+    </script>
+</body>
+</html>

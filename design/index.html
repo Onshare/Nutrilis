@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Nutrilis - 首页（养）</title>
+<script src="https://modao.cc/agent-py/static/source/js/tailwindcss.3.4.3.js"></script>
+<script src="https://modao.cc/agent-py/static/source/js/iconify-icon.min.1.0.7.js"></script>
+<script src="https://modao.cc/agent-py/static/source/js/echarts.min.5.4.3.js"></script>
+<style>
+        body { font-family: 'PingFang SC', 'San Francisco Pro', sans-serif; background: #E5E5EA; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0;}
+        .app-container { width: 375px; height: 812px; background: #FFFFFF; border: 8px solid #000; border-radius: 40px; position: relative; overflow: hidden; display: flex; flex-direction: column; }
+        .scrollbox { flex: 1; overflow-y: auto; padding-bottom: 90px; -ms-overflow-style: none; scrollbar-width: none; scroll-behavior: smooth; }
+        .scrollbox::-webkit-scrollbar { display: none; }
+        
+        /* 交互反馈 */
+        .clickable { transition: all 0.2s ease; cursor: pointer; }
+        .clickable:active { transform: scale(0.96); opacity: 0.8; }
+        .hover-effect:hover { background-color: rgba(76, 217, 100, 0.05); }
+
+        /* 搜索框交互 */
+        .search-input:focus { border-color: #4CD964; background: #fff; box-shadow: 0 0 0 2px rgba(76, 217, 100, 0.1); }
+
+        /* 下拉刷新模拟 */
+        .pull-to-refresh { height: 0; overflow: hidden; transition: height 0.3s ease; display: flex; justify-content: center; align-items: center; background: #F2F2F7; }
+        .pull-to-refresh.active { height: 50px; }
+
+        /* Banner 动画 */
+        .banner-track { display: flex; transition: transform 0.5s ease-in-out; }
+        .banner-dot.active { background-color: #4CD964; width: 12px; }
+
+        /* 页面切换动画 */
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .fade-in-section { animation: fadeIn 0.5s ease forwards; }
+
+        /* 中英文切换隐藏 */
+        [data-lang="en"] { display: none; }
+        .lang-en [data-lang="zh"] { display: none; }
+        .lang-en [data-lang="en"] { display: block; }
+    </style>
+</head>
+<body class="bg-gray-200">
+<div class="app-container" id="mainApp">
+<!-- Top Navigation -->
+<header class="h-[56px] px-4 flex items-center justify-between bg-white/80 backdrop-blur-md sticky top-0 z-20 border-b border-[#E5E5EA]">
+<div class="flex items-center space-x-2">
+<div class="w-8 h-8 bg-[#4CD964] rounded-lg flex items-center justify-center">
+<iconify-icon class="text-white text-xl" icon="solar:leaf-linear"></iconify-icon>
+</div>
+<span class="font-bold text-lg">Nutrilis</span>
+</div>
+<div class="flex items-center space-x-4">
+<button class="text-[10px] font-bold px-2 py-1 bg-[#F2F2F7] rounded-full text-[#3C3C43] clickable border border-[#E5E5EA]" id="langSwitcher">
+<span data-lang="zh">EN</span><span data-lang="en">中文</span>
+</button>
+<div class="relative clickable">
+<iconify-icon class="text-2xl text-[#3C3C43]" icon="solar:bell-linear"></iconify-icon>
+<div class="absolute top-0 right-0 w-2 h-2 bg-[#FF3B30] rounded-full border border-white"></div>
+</div>
+</div>
+</header>
+<div class="scrollbox bg-[#F2F2F7]" id="scrollContent">
+<!-- Pull to Refresh -->
+<div class="pull-to-refresh text-xs text-[#8E8E93]" id="ptr">
+<iconify-icon class="animate-spin mr-2" icon="solar:restart-linear"></iconify-icon>
+<span data-lang="zh">正在同步健康数据...</span><span data-lang="en">Syncing health data...</span>
+</div>
+<!-- Greeting -->
+<section class="px-4 py-6 bg-white fade-in-section">
+<p class="text-[#8E8E93] text-sm">2026年3月26日 星期四</p>
+<h1 class="text-2xl font-bold mt-1"><span data-lang="zh">下午好，陈先生</span><span data-lang="en">Good Afternoon, Mr. Chen</span></h1>
+<p class="text-[#3C3C43] mt-1 italic text-sm"><span data-lang="zh">“春季滋养正当时，今日宜饮淡茶。”</span><span data-lang="en">"Spring nourishment is key. Sip light tea today."</span></p>
+</section>
+<!-- Search Bar -->
+<section class="px-4 bg-white pb-4">
+<div class="relative">
+<iconify-icon class="absolute left-3 top-1/2 -translate-y-1/2 text-[#8E8E93]" icon="solar:magnifer-linear"></iconify-icon>
+<input class="search-input w-full h-10 bg-[#F2F2F7] rounded-xl pl-10 pr-4 text-sm outline-none transition-all border border-transparent" placeholder="搜索食材、功效、节气养生..." type="text"/>
+</div>
+</section>
+<!-- Banner Carousel -->
+<section class="mt-6 relative overflow-hidden group">
+<div class="banner-track flex transition-all duration-700 ease-in-out px-4 gap-4" id="bannerTrack">
+<!-- Card 1 -->
+<a class="min-w-[320px] h-[160px] bg-gradient-to-br from-[#A1C298] via-[#B8D4B0] to-[#A1C298] rounded-3xl p-6 relative overflow-hidden flex-shrink-0 clickable shadow-md" href="recipes.html?filter=spring">
+<div class="relative z-10">
+<span class="px-2 py-0.5 bg-white/20 backdrop-blur-md text-white text-[10px] uppercase font-bold rounded-lg border border-white/30 tracking-widest">Spring Collection</span>
+<h4 class="text-white font-black text-xl mt-2 tracking-tight"><span data-lang="zh">春季祛湿指南</span><span data-lang="en">Spring Detox Guide</span></h4>
+<p class="text-white/80 text-xs mt-1 max-w-[180px] leading-snug"><span data-lang="zh">拒绝春困，从内调理，探索中式食疗的智慧。</span><span data-lang="en">Beat fatigue with TCM wisdom.</span></p>
+<div class="mt-4 flex items-center gap-1 text-white text-[10px] font-bold">
+<span>Explore Now</span>
+<iconify-icon class="text-xs" icon="solar:arrow-right-linear"></iconify-icon>
+</div>
+</div>
+<iconify-icon class="text-white/10 text-[180px] absolute -right-16 -bottom-16 rotate-12 z-0" icon="solar:leaf-linear"></iconify-icon>
+<div class="absolute right-4 bottom-4 w-24 h-24 bg-white/10 rounded-full blur-2xl"></div>
+</a>
+<!-- Card 2 -->
+<a class="min-w-[320px] h-[160px] bg-gradient-to-br from-[#6B4F4F] via-[#856565] to-[#6B4F4F] rounded-3xl p-6 relative overflow-hidden flex-shrink-0 clickable shadow-md" href="quiz.html">
+<div class="relative z-10">
+<span class="px-2 py-0.5 bg-white/20 backdrop-blur-md text-white text-[10px] uppercase font-bold rounded-lg border border-white/30 tracking-widest">Analysis</span>
+<h4 class="text-white font-black text-xl mt-2 tracking-tight"><span data-lang="zh">21天营养挑战</span><span data-lang="en">21 Day Challenge</span></h4>
+<p class="text-white/80 text-xs mt-1 max-w-[180px] leading-snug"><span data-lang="zh">记录您的每日饮食，获取专家级的定制分析报告。</span><span data-lang="en">Get your personalized nutrition report.</span></p>
+<div class="mt-4 flex items-center gap-1 text-white text-[10px] font-bold">
+<span>Take Challenge</span>
+<iconify-icon class="text-xs" icon="solar:arrow-right-linear"></iconify-icon>
+</div>
+</div>
+<iconify-icon class="text-white/10 text-[180px] absolute -right-16 -bottom-16 rotate-12 z-0" icon="solar:chart-bold"></iconify-icon>
+<div class="absolute right-4 bottom-4 w-24 h-24 bg-[#D4B996]/20 rounded-full blur-2xl"></div>
+</a>
+</div>
+<div class="mt-3 flex justify-center items-center space-x-2">
+<div class="banner-dot w-6 h-1 bg-[#A1C298] rounded-full transition-all duration-300 active-dot"></div>
+<div class="banner-dot w-3 h-1 bg-gray-200 rounded-full transition-all duration-300"></div>
+</div>
+</section>
+<!-- Health Summary Ring -->
+<section class="px-4 mt-6">
+<div class="bg-white p-6 rounded-[12px] shadow-sm flex items-center border border-[#E5E5EA]">
+<div class="w-24 h-24" id="healthRing"></div>
+<div class="ml-6 flex-1">
+<h3 class="font-semibold text-[#000000]"><span data-lang="zh">今日达成率 75%</span><span data-lang="en">75% Achieved Today</span></h3>
+<div class="flex mt-3 space-x-4">
+<div class="clickable"><span class="block text-sm font-bold text-[#4CD964]">1,620</span><span class="text-[10px] text-[#8E8E93]">摄入</span></div>
+<div class="clickable"><span class="block text-sm font-bold text-[#FF9500]">420</span><span class="text-[10px] text-[#8E8E93]">消耗</span></div>
+<div class="clickable"><span class="block text-sm font-bold text-[#5AC8FA]">1.2L</span><span class="text-[10px] text-[#8E8E93]">饮水</span></div>
+</div>
+</div>
+</div>
+</section>
+<!-- Functions Grid -->
+<section class="px-4 mt-6 grid grid-cols-2 gap-4">
+<a class="bg-white p-4 rounded-[12px] flex items-center space-x-3 shadow-sm clickable hover-effect" href="quiz.html">
+<div class="w-10 h-10 rounded-full bg-[#E8F8EA] flex items-center justify-center">
+<iconify-icon class="text-[#4CD964] text-xl" icon="solar:test-tube-linear"></iconify-icon>
+</div>
+<div>
+<span class="block text-sm font-bold">体质自测</span>
+<span class="text-[10px] text-[#8E8E93]">定制方案</span>
+</div>
+</a>
+<a class="bg-white p-4 rounded-[12px] flex items-center space-x-3 shadow-sm clickable hover-effect" href="therapy.html">
+<div class="w-10 h-10 rounded-full bg-[#EBF8FE] flex items-center justify-center">
+<iconify-icon class="text-[#5AC8FA] text-xl" icon="solar:shield-star-linear"></iconify-icon>
+</div>
+<div>
+<span class="block text-sm font-bold">日常养护</span>
+<span class="text-[10px] text-[#8E8E93]">科学防范</span>
+</div>
+</a>
+</section>
+<!-- Personalized Cards -->
+<section class="px-4 mt-8">
+<div class="flex items-center justify-between mb-4">
+<h2 class="text-xl font-black text-gray-800 tracking-tight"><span data-lang="zh">每日建议</span><span data-lang="en">Daily Picks</span></h2>
+<a class="flex items-center gap-1 group" href="daily_tips_detail.html">
+<span class="text-xs text-[#A1C298] font-black"><span data-lang="zh">查看全部</span><span data-lang="en">View All</span></span>
+<iconify-icon class="text-lg text-[#A1C298] transition-transform group-hover:translate-x-1" icon="solar:round-arrow-right-bold"></iconify-icon>
+</a>
+</div>
+<div class="space-y-4">
+<a class="bg-white p-5 rounded-[28px] border border-gray-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] flex items-center justify-between clickable group" href="daily_tips_detail.html">
+<div class="flex-1 pr-4">
+<div class="flex items-center gap-2 mb-2">
+<div class="w-1.5 h-1.5 bg-[#A1C298] rounded-full"></div>
+<span class="text-[10px] uppercase font-black text-[#A1C298] tracking-widest"><span data-lang="zh">滋补提醒</span><span data-lang="en">Nourishment</span></span>
+</div>
+<h4 class="text-lg font-bold text-gray-800 leading-tight group-hover:text-[#A1C298] transition-colors"><span data-lang="zh">推荐: 银耳百合羹</span><span data-lang="en">Lily Bulb Soup</span></h4>
+<p class="text-xs text-gray-400 mt-2 font-medium line-clamp-2 leading-relaxed"><span data-lang="zh">检测到近期空气干燥，建议适量摄入滋阴润燥食物，缓解春躁引发的皮肤不适。</span><span data-lang="en">Air is dry lately. Time for some moisturizing ingredients to protect your skin.</span></p>
+<div class="mt-4 flex items-center gap-3">
+<div class="flex -space-x-2">
+<img class="w-5 h-5 rounded-full border border-white" src="https://i.pravatar.cc/30?u=1"/>
+<img class="w-5 h-5 rounded-full border border-white" src="https://i.pravatar.cc/30?u=2"/>
+<img class="w-5 h-5 rounded-full border border-white" src="https://i.pravatar.cc/30?u=3"/>
+</div>
+<span class="text-[10px] text-gray-400 font-bold">12k+ <span data-lang="zh">人今日已食</span><span data-lang="en">Eaten</span></span>
+</div>
+</div>
+<div class="relative w-24 h-24 overflow-hidden rounded-2xl flex-shrink-0">
+<img alt="food" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" src="https://modao.cc/agent-py/media/generated_images/2026-03-26/75e50f87e33841609b559f7e890063c5.jpg">
+</img></div>
+</a>
+</div>
+</section>
+</div>
+<!-- Bottom Navigation -->
+<nav class="absolute bottom-0 w-full h-[80px] bg-white/90 backdrop-blur-lg border-t border-[#E5E5EA] flex justify-around items-center px-4 z-20">
+<a class="flex flex-col items-center space-y-1 text-[#4CD964] clickable" href="index.html">
+<iconify-icon class="text-2xl" icon="solar:home-smile-bold"></iconify-icon>
+<span class="text-[10px] font-bold">养</span>
+</a>
+<a class="flex flex-col items-center space-y-1 text-[#C7C7CC] clickable" href="recipes.html">
+<iconify-icon class="text-2xl" icon="solar:tea-cup-linear"></iconify-icon>
+<span class="text-[10px]">补</span>
+</a>
+<a class="flex flex-col items-center space-y-1 text-[#C7C7CC] clickable" href="therapy.html">
+<iconify-icon class="text-2xl" icon="solar:meditation-linear"></iconify-icon>
+<span class="text-[10px]">修</span>
+</a>
+<a class="flex flex-col items-center space-y-1 text-[#C7C7CC] clickable" href="profile.html">
+<iconify-icon class="text-2xl" icon="solar:user-circle-linear"></iconify-icon>
+<span class="text-[10px]">我的</span>
+</a>
+</nav>
+</div>
+<script>
+        // ECharts 初始化
+        var chartDom = document.getElementById('healthRing');
+        var myChart = echarts.init(chartDom);
+        var option = {
+            series: [{
+                type: 'pie', radius: ['80%', '100%'], avoidLabelOverlap: false,
+                label: { show: true, position: 'center', formatter: '75%', fontSize: 18, fontWeight: 'bold' },
+                data: [
+                    { value: 75, name: '已完成', itemStyle: { color: '#4CD964' } },
+                    { value: 25, itemStyle: { color: '#F2F2F7' } }
+                ],
+                silent: true
+            }]
+        };
+        myChart.setOption(option);
+
+        // Banner 自动轮播
+        let currentIndex = 0;
+        const bannerTrack = document.getElementById('bannerTrack');
+        const dots = document.querySelectorAll('.banner-dot');
+        function rotateBanner() {
+            currentIndex = (currentIndex + 1) % 2;
+            const offset = currentIndex * (320 + 16); // 320 card + 16 gap
+            bannerTrack.style.transform = `translateX(-${offset}px)`;
+            dots.forEach((dot, i) => {
+                if(i === currentIndex) {
+                    dot.classList.add('w-6', 'bg-[#A1C298]');
+                    dot.classList.remove('w-3', 'bg-gray-200');
+                } else {
+                    dot.classList.remove('w-6', 'bg-[#A1C298]');
+                    dot.classList.add('w-3', 'bg-gray-200');
+                }
+            });
+        }
+        setInterval(rotateBanner, 4000);
+
+        // 语言切换
+        const langBtn = document.getElementById('langSwitcher');
+        const mainApp = document.getElementById('mainApp');
+        langBtn.onclick = () => {
+            mainApp.classList.toggle('lang-en');
+        };
+
+        // 下拉刷新模拟
+        const scrollContent = document.getElementById('scrollContent');
+        const ptr = document.getElementById('ptr');
+        let startY = 0;
+        scrollContent.ontouchstart = e => startY = e.touches[0].pageY;
+        scrollContent.ontouchmove = e => {
+            const moveY = e.touches[0].pageY;
+            if (scrollContent.scrollTop === 0 && moveY > startY) {
+                ptr.classList.add('active');
+            }
+        };
+        scrollContent.ontouchend = () => {
+            setTimeout(() => ptr.classList.remove('active'), 1500);
+        };
+    </script>
+</body>
+</html>

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Nutrilis - 滋补食谱</title>
+<script src="https://modao.cc/agent-py/static/source/js/tailwindcss.3.4.3.js"></script>
+<script src="https://modao.cc/agent-py/static/source/js/iconify-icon.min.1.0.7.js"></script>
+<style>
+        :root { --primary: #A1C298; --secondary: #6B4F4F; --accent: #D4B996; --bg: #F9F9F7; }
+        .app-container { width: 375px; height: 812px; background: #FFF; border: 8px solid #000; border-radius: 40px; position: relative; overflow: hidden; display: flex; flex-direction: column; }
+        .scrollbox { flex: 1; overflow-y: auto; padding-bottom: 90px; }
+        .scrollbox::-webkit-scrollbar { display: none; }
+        .clickable { transition: all 0.2s; cursor: pointer; }
+        .clickable:active { transform: scale(0.95); opacity: 0.8; }
+        .tab-active { background: var(--primary); color: white; box-shadow: 0 4px 12px rgba(161, 194, 152, 0.3); }
+        .recipe-card { background: white; border-radius: 20px; overflow: hidden; border: 1px solid #F0F0F0; transition: transform 0.3s ease; }
+        .recipe-card:active { transform: translateY(4px); }
+    </style>
+</head>
+<body class="bg-gray-100 flex justify-center items-center min-h-screen">
+<div class="app-container">
+<!-- Top Bar -->
+<header class="px-6 pt-12 pb-4 bg-white">
+<h1 class="text-2xl font-black text-gray-800 tracking-tight">每日滋补</h1>
+<div class="mt-4 relative">
+<iconify-icon class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" icon="solar:magnifer-linear"></iconify-icon>
+<input class="w-full h-11 bg-gray-50 border-none rounded-2xl pl-11 pr-4 text-sm focus:ring-2 focus:ring-[#A1C298] outline-none" placeholder="搜索食材或体质需求..." type="text"/>
+</div>
+</header>
+<!-- Categories -->
+<div class="flex space-x-3 px-6 py-4 overflow-x-auto whitespace-nowrap scrollbox-h no-scrollbar">
+<span class="px-4 py-2 rounded-xl text-xs font-bold tab-active clickable">全部</span>
+<span class="px-4 py-2 rounded-xl text-xs font-bold bg-gray-50 text-gray-400 clickable">春季润燥</span>
+<span class="px-4 py-2 rounded-xl text-xs font-bold bg-gray-50 text-gray-400 clickable">安神助眠</span>
+<span class="px-4 py-2 rounded-xl text-xs font-bold bg-gray-50 text-gray-400 clickable">护肝排毒</span>
+</div>
+<div class="scrollbox px-6 space-y-6">
+<!-- Featured -->
+<a class="block recipe-card shadow-sm" href="recipe-detail.html?id=1">
+<div class="relative h-48">
+<img class="w-full h-full object-cover" src="https://modao.cc/agent-py/media/generated_images/2026-03-26/2b414f647ffa4c68a8adf7bfdb8cdd9d.jpg"/>
+<div class="absolute top-4 left-4 flex gap-2">
+<span class="px-2 py-1 bg-white/20 backdrop-blur-md rounded-lg text-white text-[10px] font-bold border border-white/30 uppercase tracking-widest">Featured</span>
+</div>
+</div>
+<div class="p-4">
+<div class="flex justify-between items-start mb-2">
+<h3 class="text-lg font-bold text-gray-800">百合马蹄羹</h3>
+<div class="flex items-center text-[#A1C298] font-bold">
+<iconify-icon class="mr-1" icon="solar:star-bold"></iconify-icon>
+<span class="text-xs">4.9</span>
+</div>
+</div>
+<p class="text-xs text-gray-400 leading-relaxed line-clamp-2">春分之后气候阴晴不定，最易引发上火。此羹清热化痰，口味清甜。</p>
+<div class="mt-4 flex items-center gap-4">
+<div class="flex items-center gap-1 text-[10px] font-bold text-gray-500">
+<iconify-icon class="text-sm" icon="solar:clock-circle-linear"></iconify-icon>
+<span>20 min</span>
+</div>
+<div class="flex items-center gap-1 text-[10px] font-bold text-gray-500">
+<iconify-icon class="text-sm text-orange-400" icon="solar:fire-bold"></iconify-icon>
+<span>128 kcal</span>
+</div>
+</div>
+</div>
+</a>
+<!-- Grid -->
+<div class="grid grid-cols-2 gap-4">
+<a class="recipe-card shadow-sm block" href="recipe-detail.html?id=2">
+<img class="w-full h-32 object-cover" src="https://modao.cc/agent-py/media/generated_images/2026-03-26/1ef8f480da0f4410931238699119934a.jpg"/>
+<div class="p-3">
+<h4 class="text-sm font-bold text-gray-800 line-clamp-1">当归补血汤</h4>
+<p class="text-[10px] text-gray-400 mt-1">滋补肝肾，润肠养血</p>
+<div class="mt-3 flex justify-between items-center">
+<span class="text-[9px] font-black text-[#6B4F4F] bg-[#6B4F4F]/5 px-2 py-0.5 rounded">补气血</span>
+<iconify-icon class="text-gray-300" icon="solar:heart-linear"></iconify-icon>
+</div>
+</div>
+</a>
+<a class="recipe-card shadow-sm block" href="recipe-detail.html?id=3">
+<img class="w-full h-32 object-cover" src="https://modao.cc/agent-py/media/generated_images/2026-03-26/b9bdb3d93f664b7bb94723d97c3ea629.jpg"/>
+<div class="p-3">
+<h4 class="text-sm font-bold text-gray-800 line-clamp-1">五指毛桃鸡汤</h4>
+<p class="text-[10px] text-gray-400 mt-1">健脾补肺，行气利湿</p>
+<div class="mt-3 flex justify-between items-center">
+<span class="text-[9px] font-black text-[#A1C298] bg-[#A1C298]/5 px-2 py-0.5 rounded">祛湿</span>
+<iconify-icon class="text-red-400" icon="solar:heart-bold"></iconify-icon>
+</div>
+</div>
+</a>
+</div>
+</div>
+<!-- Bottom Navigation -->
+<nav class="absolute bottom-0 w-full h-[80px] bg-white border-t border-gray-100 flex justify-around items-center px-4 z-20">
+<a class="flex flex-col items-center space-y-1 text-gray-300 clickable" href="index.html">
+<iconify-icon class="text-2xl" icon="solar:home-smile-linear"></iconify-icon>
+<span class="text-[10px]">养</span>
+</a>
+<a class="flex flex-col items-center space-y-1 text-[#A1C298] clickable" href="recipes.html">
+<iconify-icon class="text-2xl" icon="solar:tea-cup-bold"></iconify-icon>
+<span class="text-[10px] font-bold">补</span>
+</a>
+<a class="flex flex-col items-center space-y-1 text-gray-300 clickable" href="therapy.html">
+<iconify-icon class="text-2xl" icon="solar:meditation-linear"></iconify-icon>
+<span class="text-[10px]">修</span>
+</a>
+<a class="flex flex-col items-center space-y-1 text-gray-300 clickable" href="profile.html">
+<iconify-icon class="text-2xl" icon="solar:user-circle-linear"></iconify-icon>
+<span class="text-[10px]">我的</span>
+</a>
+</nav>
+</div>
+</body>
+</html>

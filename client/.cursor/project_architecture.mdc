@@ -1,0 +1,31 @@
+---
+description: Nutrilis Flutter client architecture and UI conventions
+globs: lib/**/*.dart
+alwaysApply: false
+---
+
+# Nutrilis Flutter Client
+
+- 技术栈固定为 Flutter 3.x + Material 3，使用 `flutter_bloc`/`bloc` 管理状态，`dio` 负责网络请求，路由采用集中式 `Navigator + onGenerateRoute`，不要再引入 `go_router` 或 `flutter_riverpod`。
+- 目录按 `app / components / core / features` 四层拆分。`app` 只放应用入口和路由，`components` 放通用 UI，`core` 放常量/网络/序列化/状态/样式/base，`features` 放具体功能。
+- `features` 目录至少保持按业务域拆分：`auth`、`home`、`recipes`、`therapy`、`daily_care`、`quiz`、`profile`、`favorites`、`history`、`settings`。单个 feature 内优先按 `page / bloc / repository / service / model / widgets` 继续拆分。
+- `core` 只放跨模块能力：主题、设计令牌、网络、序列化、基础状态、base page、全局会话等；业务代码不得直接堆在 `core`。
+- 设计唯一基准是 `design/design.md` 与 `design/*.html`。所有视觉实现必须复用统一设计令牌，不允许在业务组件里直接写裸色值。
+- 品牌色板固定为：`#A1C298`、`#6B4F4F`、`#D4B996`、`#FAF7F2`、`#FFFFFF`、`#333333`、`#666666`、`#D9534F`、`#EAEAEA`。这些值只允许出现在 `core/theme` 的 token 定义中。
+- 全局风格保持“现代简约、温暖干净、权威专业、留白充足”；卡片圆角默认 12-16dp，移动端优先，点击热区不低于 44dp。
+- 客户端必须完整覆盖以下页面：启动页、单页 OTP 登录/注册、首页、日常养护专题、食谱列表、食谱详情、理疗列表、理疗详情、体质自测、测评结果、收藏、浏览历史、个人中心、设置、关于/协议/免责声明、意见反馈。
+- 登录方式固定为手机号/邮箱 OTP，登录即注册。手机号输入与 OTP 输入必须合并在同一页面，不要再拆成两页流程。
+- 主导航固定为 `home / recipes / therapy / profile` 四个一级 tab；详情页、收藏、历史、设置等走二级路由，不混入 tab 容器状态。
+- 双语要求保留 `zh-CN` / `en` 两套文案。允许在 MVP 阶段使用轻量 `LocalizedText` 模型做静态双语映射，但不要把中英文散落在超大单文件里。
+- 页面实现使用“页面容器 + section widget + 业务组件”三级拆分。单个页面文件若超过约 250 行，应继续提取 section/组件。
+- 通用组件优先沉淀：品牌 Logo、搜索框、Banner、内容卡片、标签 Chip、来源 Badge、收藏按钮、空态、错误态、加载态、底部免责声明。
+- 状态管理优先使用 `Bloc`/`Cubit`，避免页面局部状态和全局状态无序混用。全局状态统一收敛到 `AppBloc`，feature 状态收敛到各自 bloc。
+- 网络层统一通过 `core/network` 中的 `DioClient`、`ApiResponse`、`ApiException`、`SessionStore` 访问，不允许页面直接 new `Dio`。
+- 内容数据优先走 server API，不再在客户端保留第二套完整内容源；只允许在 `core/data` 中保留少量过渡常量或静态说明文案。
+- 首页、食谱、理疗、日常养护、测评结果等内容页必须显示“权威来源/适用体质/禁忌提示”等关键医学科普字段；风险提示使用统一警示组件。
+- 详情页底部固定展示免责声明：“本内容仅为养生科普，不替代医疗诊断与治疗方案”。
+- 产品边界严格限制为“纯内容科普”。禁止实现电商、支付、价格、商家导流、广告位、预约购买等元素。
+- Theme、Spacing、Typography、Radius、Shadow、Icon style 必须统一定义并通过 `ThemeExtension` 或 token class 暴露；页面不得局部私有一套视觉体系。
+- 网络层使用统一 `ApiClient`、`ApiResult`、`AppException`；接口错误、空数据、弱网重试需要统一处理，不允许页面自行拼接错误逻辑。
+- 收藏、历史、语言设置、登录态等跨页状态由 `AppBloc` 管理，不允许通过全局可变单例直接共享。
+- 新增页面时优先复用现有 design token 和通用组件；只有在 design 明确新增一种交互模式时，才允许扩展基础组件集。

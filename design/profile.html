@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Nutrilis - 个人中心</title>
+<script src="https://modao.cc/agent-py/static/source/js/tailwindcss.3.4.3.js"></script>
+<script src="https://modao.cc/agent-py/static/source/js/iconify-icon.min.1.0.7.js"></script>
+<style>
+        :root { --primary: #A1C298; --secondary: #6B4F4F; --accent: #D4B996; --bg: #F9F9F7; }
+        .app-container { width: 375px; height: 812px; background: #FFF; border: 8px solid #000; border-radius: 40px; position: relative; overflow: hidden; display: flex; flex-direction: column; }
+        .scrollbox { flex: 1; overflow-y: auto; padding-bottom: 90px; }
+        .scrollbox::-webkit-scrollbar { display: none; }
+        .clickable { transition: all 0.2s; cursor: pointer; }
+        .clickable:active { transform: scale(0.95); opacity: 0.8; }
+        .profile-card { background: white; border-radius: 28px; padding: 24px; border: 1px solid #F0F0F0; box-shadow: 0 4px 30px rgba(0,0,0,0.03); margin-bottom: 20px; }
+        [data-lang="en"] { display: none; }
+        .lang-en [data-lang="zh"] { display: none; }
+        .lang-en [data-lang="en"] { display: block; }
+    </style>
+</head>
+<body class="bg-gray-100 flex justify-center items-center min-h-screen">
+<div class="app-container" id="mainApp">
+<!-- Header -->
+<header class="px-6 pt-12 pb-6 flex justify-between items-center bg-white sticky top-0 z-20">
+<h1 class="text-2xl font-black text-gray-800 tracking-tight"><span data-lang="zh">我的</span><span data-lang="en">Profile</span></h1>
+<div class="flex items-center gap-3">
+<button class="px-2 py-1 bg-gray-50 rounded-lg text-[10px] font-black text-gray-400 border border-gray-100 uppercase tracking-widest clickable" id="langSwitcher">
+<span data-lang="zh">EN</span><span data-lang="en">中文</span>
+</button>
+<a class="w-10 h-10 flex items-center justify-center rounded-full bg-gray-50 clickable" href="settings.html">
+<iconify-icon class="text-xl text-gray-600" icon="solar:settings-linear"></iconify-icon>
+</a>
+</div>
+</header>
+<div class="scrollbox px-6 pt-4">
+<!-- User Info Card -->
+<div class="flex items-center gap-4 mb-8">
+<div class="relative w-20 h-20">
+<img class="w-full h-full rounded-2xl object-cover border-4 border-white shadow-lg" src="https://modao.cc/agent-py/media/generated_images/2026-03-26/fe44b8f710c849178fbd2f8f857bc24f.jpg"/>
+<div class="absolute -bottom-1 -right-1 w-6 h-6 bg-green-400 border-2 border-white rounded-full flex items-center justify-center">
+<iconify-icon class="text-white text-[10px]" icon="solar:crown-bold"></iconify-icon>
+</div>
+</div>
+<div>
+<h2 class="text-xl font-bold text-gray-800">陈景森 Jingsen Chen</h2>
+<p class="text-[10px] text-gray-400 font-bold uppercase tracking-widest mt-1">LV.4 <span data-lang="zh">滋养者</span><span data-lang="en">Nourisher</span></p>
+</div>
+</div>
+<!-- Dashboard Modules (Re-designed) -->
+<div class="space-y-4">
+<!-- Medical Report Module -->
+<a class="block bg-[#EBF8FE] p-6 rounded-[32px] border border-blue-50 clickable group" href="medical_report.html">
+<div class="flex justify-between items-start">
+<div class="w-12 h-12 bg-white rounded-2xl flex items-center justify-center shadow-sm">
+<iconify-icon class="text-2xl text-blue-400" icon="solar:bill-list-bold"></iconify-icon>
+</div>
+<iconify-icon class="text-2xl text-blue-200 transition-transform group-hover:translate-x-1" icon="solar:round-alt-arrow-right-bold"></iconify-icon>
+</div>
+<div class="mt-6">
+<h3 class="text-lg font-black text-blue-900 leading-tight"><span data-lang="zh">体检分析报告</span><span data-lang="en">Health Report</span></h3>
+<p class="text-xs text-blue-800/60 mt-2 font-medium"><span data-lang="zh">整合近5项核心指标，提供深度体质解析。</span><span data-lang="en">5 core metrics analyzed for your body type.</span></p>
+</div>
+</a>
+<div class="grid grid-cols-2 gap-4">
+<!-- Footprints Module -->
+<a class="bg-white p-5 rounded-[32px] border border-gray-100 shadow-sm clickable group block" href="footprints.html">
+<div class="w-10 h-10 bg-orange-50 rounded-xl flex items-center justify-center mb-4 transition-colors group-hover:bg-orange-100">
+<iconify-icon class="text-xl text-orange-400" icon="solar:footprint-bold"></iconify-icon>
+</div>
+<h4 class="text-sm font-black text-gray-800"><span data-lang="zh">足迹</span><span data-lang="en">History</span></h4>
+<p class="text-[10px] text-gray-400 mt-1 font-bold"><span data-lang="zh">健康探索回顾</span><span data-lang="en">Recall History</span></p>
+</a>
+<!-- Privacy & Security Module -->
+<a class="bg-white p-5 rounded-[32px] border border-gray-100 shadow-sm clickable group block" href="privacy_security.html">
+<div class="w-10 h-10 bg-green-50 rounded-xl flex items-center justify-center mb-4 transition-colors group-hover:bg-green-100">
+<iconify-icon class="text-xl text-green-400" icon="solar:shield-check-bold"></iconify-icon>
+</div>
+<h4 class="text-sm font-black text-gray-800"><span data-lang="zh">隐私安全</span><span data-lang="en">Privacy</span></h4>
+<p class="text-[10px] text-gray-400 mt-1 font-bold"><span data-lang="zh">账户安全管理</span><span data-lang="en">Secure Account</span></p>
+</a>
+</div>
+<!-- Achievements Card -->
+<div class="profile-card">
+<div class="flex justify-between items-center mb-4">
+<h3 class="text-sm font-black text-gray-800 uppercase tracking-widest"><span data-lang="zh">成就里程碑</span><span data-lang="en">Achievements</span></h3>
+</div>
+<div class="flex gap-4 overflow-x-auto no-scrollbar">
+<div class="flex-shrink-0 flex flex-col items-center gap-1 opacity-50 grayscale">
+<div class="w-12 h-12 bg-gray-50 rounded-full border border-gray-200 flex items-center justify-center">
+<iconify-icon class="text-gray-300 text-2xl" icon="solar:medal-ribbon-bold"></iconify-icon>
+</div>
+<span class="text-[8px] font-black text-gray-300 uppercase">2026 Goal</span>
+</div>
+<div class="flex-shrink-0 flex flex-col items-center gap-1">
+<div class="w-12 h-12 bg-[#D4B996]/10 rounded-full border border-[#D4B996]/20 flex items-center justify-center">
+<iconify-icon class="text-[#D4B996] text-2xl" icon="solar:fire-bold"></iconify-icon>
+</div>
+<span class="text-[8px] font-black text-[#D4B996] uppercase">Early Bird</span>
+</div>
+<div class="flex-shrink-0 flex flex-col items-center gap-1">
+<div class="w-12 h-12 bg-[#A1C298]/10 rounded-full border border-[#A1C298]/20 flex items-center justify-center">
+<iconify-icon class="text-[#A1C298] text-2xl" icon="solar:leaf-bold"></iconify-icon>
+</div>
+<span class="text-[8px] font-black text-[#A1C298] uppercase">Fiber Expert</span>
+</div>
+</div>
+</div>
+</div>
+<div class="mt-8 mb-12 text-center">
+<button class="px-8 py-3 rounded-2xl border border-red-50 text-red-400 text-xs font-black uppercase tracking-widest clickable"><span data-lang="zh">退出登录</span><span data-lang="en">Logout</span></button>
+</div>
+</div>
+<!-- Bottom Navigation -->
+<nav class="absolute bottom-0 w-full h-[80px] bg-white border-t border-gray-100 flex justify-around items-center px-4 z-20">
+<a class="flex flex-col items-center space-y-1 text-gray-300 clickable" href="index.html">
+<iconify-icon class="text-2xl" icon="solar:home-smile-linear"></iconify-icon>
+<span class="text-[10px]">养</span>
+</a>
+<a class="flex flex-col items-center space-y-1 text-gray-300 clickable" href="recipes.html">
+<iconify-icon class="text-2xl" icon="solar:tea-cup-linear"></iconify-icon>
+<span class="text-[10px]">补</span>
+</a>
+<a class="flex flex-col items-center space-y-1 text-gray-300 clickable" href="therapy.html">
+<iconify-icon class="text-2xl" icon="solar:meditation-linear"></iconify-icon>
+<span class="text-[10px]">修</span>
+</a>
+<a class="flex flex-col items-center space-y-1 text-[#4CD964] clickable" href="profile.html">
+<iconify-icon class="text-2xl" icon="solar:user-circle-bold"></iconify-icon>
+<span class="text-[10px] font-bold">我的</span>
+</a>
+</nav>
+</div>
+<script>
+        const langBtn = document.getElementById('langSwitcher');
+        const mainApp = document.getElementById('mainApp');
+        langBtn.onclick = () => {
+            mainApp.classList.toggle('lang-en');
+        };
+    </script>
+</body>
+</html>

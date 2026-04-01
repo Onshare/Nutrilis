@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Nutrilis - 设置页</title>
+<script src="https://modao.cc/agent-py/static/source/js/tailwindcss.3.4.3.js"></script>
+<script src="https://modao.cc/agent-py/static/source/js/iconify-icon.min.1.0.7.js"></script>
+<style>
+        .app-container { width: 375px; height: 812px; background: #F2F2F7; border: 8px solid #000; border-radius: 40px; position: relative; overflow: hidden; display: flex; flex-direction: column; }
+        .scrollbox { flex: 1; overflow-y: auto; padding-bottom: 20px; }
+        .toggle-switch { width: 51px; height: 31px; border-radius: 31px; background-color: #E5E5EA; position: relative; transition: background-color 0.3s; cursor: pointer; }
+        .toggle-switch.active { background-color: #4CD964; }
+        .toggle-knob { width: 27px; height: 27px; border-radius: 50%; background-color: white; position: absolute; left: 2px; top: 2px; box-shadow: 0 2px 4px rgba(0,0,0,0.2); transition: transform 0.3s; }
+        .toggle-switch.active .toggle-knob { transform: translateX(20px); }
+    </style>
+</head>
+<body class="bg-gray-200 flex justify-center items-center min-h-screen font-sans">
+<div class="app-container">
+<!-- Top Navigation -->
+<header class="h-[56px] px-4 flex items-center justify-between border-b border-[#E5E5EA] bg-white">
+<a class="w-10 h-10 flex items-center justify-center" href="profile.html">
+<iconify-icon class="text-2xl text-[#3C3C43]" icon="solar:alt-arrow-left-linear"></iconify-icon>
+</a>
+<h1 class="font-bold text-center flex-1 mr-10">设置</h1>
+</header>
+<div class="scrollbox">
+<!-- Setting Group 1 -->
+<div class="px-4 py-6">
+<span class="text-[10px] font-bold text-[#8E8E93] ml-4 uppercase tracking-widest">账户与语言</span>
+<div class="mt-2 bg-white rounded-[16px] overflow-hidden shadow-sm">
+<div class="flex items-center px-4 py-4 border-b border-[#F2F2F7]">
+<span class="flex-1 text-sm font-medium">语言设置 / Language</span>
+<div class="flex items-center space-x-2 text-xs text-[#8E8E93]">
+<span>简体中文</span>
+<iconify-icon icon="solar:alt-arrow-right-linear"></iconify-icon>
+</div>
+</div>
+<div class="flex items-center px-4 py-4 border-b border-[#F2F2F7]">
+<span class="flex-1 text-sm font-medium">账户信息</span>
+<iconify-icon class="text-[#C7C7CC]" icon="solar:alt-arrow-right-linear"></iconify-icon>
+</div>
+</div>
+</div>
+<!-- Setting Group 2 -->
+<div class="px-4 py-2">
+<span class="text-[10px] font-bold text-[#8E8E93] ml-4 uppercase tracking-widest">消息提醒</span>
+<div class="mt-2 bg-white rounded-[16px] overflow-hidden shadow-sm">
+<div class="flex items-center px-4 py-4 border-b border-[#F2F2F7]">
+<span class="flex-1 text-sm font-medium">推送通知</span>
+<div class="toggle-switch active" onclick="this.classList.toggle('active')">
+<div class="toggle-knob"></div>
+</div>
+</div>
+<div class="flex items-center px-4 py-4 border-b border-[#F2F2F7]">
+<span class="flex-1 text-sm font-medium">饮水提醒</span>
+<div class="toggle-switch active" onclick="this.classList.toggle('active')">
+<div class="toggle-knob"></div>
+</div>
+</div>
+<div class="flex items-center px-4 py-4">
+<span class="flex-1 text-sm font-medium">健康简报</span>
+<div class="toggle-switch" onclick="this.classList.toggle('active')">
+<div class="toggle-knob"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Setting Group 3 -->
+<div class="px-4 py-6">
+<span class="text-[10px] font-bold text-[#8E8E93] ml-4 uppercase tracking-widest">隐私管理</span>
+<div class="mt-2 bg-white rounded-[16px] overflow-hidden shadow-sm">
+<div class="flex items-center px-4 py-4 border-b border-[#F2F2F7]">
+<span class="flex-1 text-sm font-medium">数据导出 (JSON/CSV)</span>
+<iconify-icon class="text-[#4CD964]" icon="solar:export-linear"></iconify-icon>
+</div>
+<div class="flex items-center px-4 py-4 border-b border-[#F2F2F7]">
+<span class="flex-1 text-sm font-medium">位置权限</span>
+<iconify-icon class="text-[#C7C7CC]" icon="solar:alt-arrow-right-linear"></iconify-icon>
+</div>
+</div>
+</div>
+<!-- Information Link -->
+<div class="px-4 pb-10">
+<div class="bg-white rounded-[16px] overflow-hidden shadow-sm">
+<div class="flex items-center px-4 py-4 border-b border-[#F2F2F7]">
+<span class="flex-1 text-sm font-medium text-[#FF3B30]">清除缓存 (12.4 MB)</span>
+</div>
+<div class="flex items-center px-4 py-4 text-center justify-center active:bg-red-50">
+<span class="text-sm font-bold text-[#FF3B30]">退出当前账号</span>
+</div>
+</div>
+<p class="text-[10px] text-[#C7C7CC] text-center mt-6">Nutrilis Version 1.0.0 Stable</p>
+<p class="text-[10px] text-[#C7C7CC] text-center mt-1 italic">致力于打造最纯粹的滋养管理体验</p>
+</div>
+</div>
+</div>
+</body>
+</html>

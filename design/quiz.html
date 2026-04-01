@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Nutrilis - 体质自测</title>
+<script src="https://modao.cc/agent-py/static/source/js/tailwindcss.3.4.3.js"></script>
+<script src="https://modao.cc/agent-py/static/source/js/iconify-icon.min.1.0.7.js"></script>
+<style>
+        .app-container { width: 375px; height: 812px; background: #FFFFFF; border: 8px solid #000; border-radius: 40px; position: relative; overflow: hidden; display: flex; flex-direction: column; }
+        .quiz-step { display: none; }
+        .quiz-step.active { display: flex; flex-direction: column; height: 100%; animation: fadeIn 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+        
+        /* 交互效果 */
+        .clickable { transition: all 0.2s ease; cursor: pointer; }
+        .clickable:active { transform: scale(0.96); opacity: 0.8; }
+        
+        .option-btn { transition: all 0.3s ease; }
+        .option-btn.selected { border-color: #4CD964; background-color: #F2FDF4; box-shadow: 0 4px 12px rgba(76, 217, 100, 0.1); }
+        .option-btn.selected iconify-icon { color: #4CD964; opacity: 1; }
+    </style>
+</head>
+<body class="bg-gray-100 flex justify-center items-center min-h-screen">
+<div class="app-container">
+<!-- Persistent Top Header -->
+<header class="h-[56px] px-4 flex items-center border-b border-[#F2F2F7] shrink-0">
+<a class="w-10 h-10 flex items-center justify-center clickable" href="index.html">
+<iconify-icon class="text-2xl text-[#3C3C43]" icon="solar:alt-arrow-left-linear"></iconify-icon>
+</a>
+<h1 class="flex-1 text-center font-bold mr-10">体质自测</h1>
+</header>
+<main class="flex-1 px-6 pt-8 pb-4 overflow-y-auto">
+<!-- Progress Tracker -->
+<div class="flex space-x-2 mb-10 h-1.5 shrink-0" id="quiz-progress">
+<div class="flex-1 bg-[#4CD964] rounded-full transition-all duration-500"></div>
+<div class="flex-1 bg-[#E5E5EA] rounded-full transition-all duration-500"></div>
+<div class="flex-1 bg-[#E5E5EA] rounded-full transition-all duration-500"></div>
+<div class="flex-1 bg-[#E5E5EA] rounded-full transition-all duration-500"></div>
+</div>
+<!-- Quiz Step 1 -->
+<div class="quiz-step active" id="step-1">
+<span class="text-[10px] font-bold text-[#4CD964] tracking-widest uppercase">Question 01</span>
+<h2 class="text-xl font-bold mt-2 text-[#3C3C43]">在近一年的生活中，你感到手脚发凉的情况多吗？</h2>
+<div class="mt-8 space-y-4">
+<button class="option-btn w-full py-4 px-6 border-2 border-[#E5E5EA] rounded-[16px] text-left text-sm flex justify-between items-center group clickable" onclick="selectOption(this, 2)">
+<span>从不</span>
+<iconify-icon class="text-xl text-[#E5E5EA] opacity-0 transition-opacity" icon="solar:check-circle-bold"></iconify-icon>
+</button>
+<button class="option-btn w-full py-4 px-6 border-2 border-[#E5E5EA] rounded-[16px] text-left text-sm flex justify-between items-center group clickable" onclick="selectOption(this, 2)">
+<span>偶尔</span>
+<iconify-icon class="text-xl text-[#E5E5EA] opacity-0 transition-opacity" icon="solar:check-circle-bold"></iconify-icon>
+</button>
+<button class="option-btn w-full py-4 px-6 border-2 border-[#E5E5EA] rounded-[16px] text-left text-sm flex justify-between items-center group clickable" onclick="selectOption(this, 2)">
+<span>经常</span>
+<iconify-icon class="text-xl text-[#E5E5EA] opacity-0 transition-opacity" icon="solar:check-circle-bold"></iconify-icon>
+</button>
+<button class="option-btn w-full py-4 px-6 border-2 border-[#E5E5EA] rounded-[16px] text-left text-sm flex justify-between items-center group clickable" onclick="selectOption(this, 2)">
+<span>总是</span>
+<iconify-icon class="text-xl text-[#E5E5EA] opacity-0 transition-opacity" icon="solar:check-circle-bold"></iconify-icon>
+</button>
+</div>
+</div>
+<!-- Quiz Step 2 -->
+<div class="quiz-step" id="step-2">
+<span class="text-[10px] font-bold text-[#4CD964] tracking-widest uppercase">Question 02</span>
+<h2 class="text-xl font-bold mt-2 text-[#3C3C43]">你是否经常感到口渴，即便喝水后依然无法缓解？</h2>
+<div class="mt-8 space-y-4">
+<button class="option-btn w-full py-4 px-6 border-2 border-[#E5E5EA] rounded-[16px] text-left text-sm flex justify-between items-center clickable" onclick="selectOption(this, 3)">
+<span>没有</span>
+<iconify-icon class="text-xl text-[#E5E5EA] opacity-0 transition-opacity" icon="solar:check-circle-bold"></iconify-icon>
+</button>
+<button class="option-btn w-full py-4 px-6 border-2 border-[#E5E5EA] rounded-[16px] text-left text-sm flex justify-between items-center clickable" onclick="selectOption(this, 3)">
+<span>很少</span>
+<iconify-icon class="text-xl text-[#E5E5EA] opacity-0 transition-opacity" icon="solar:check-circle-bold"></iconify-icon>
+</button>
+<button class="option-btn w-full py-4 px-6 border-2 border-[#E5E5EA] rounded-[16px] text-left text-sm flex justify-between items-center clickable" onclick="selectOption(this, 3)">
+<span>常有</span>
+<iconify-icon class="text-xl text-[#E5E5EA] opacity-0 transition-opacity" icon="solar:check-circle-bold"></iconify-icon>
+</button>
+</div>
+<button class="mt-10 text-sm text-[#8E8E93] flex items-center space-x-1 clickable" onclick="nextStep(1)">
+<iconify-icon icon="solar:alt-arrow-left-linear"></iconify-icon>
+<span>返回上一题</span>
+</button>
+</div>
+<!-- Quiz Step 3 (Generating Report) -->
+<div class="quiz-step" id="step-3">
+<div class="flex-1 flex flex-col items-center justify-center text-center">
+<div class="relative w-24 h-24 mb-6">
+<div class="absolute inset-0 border-4 border-[#F2F2F7] rounded-full"></div>
+<div class="absolute inset-0 border-4 border-[#4CD964] rounded-full border-t-transparent animate-spin"></div>
+<iconify-icon class="text-4xl text-[#4CD964] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" icon="solar:globus-linear"></iconify-icon>
+</div>
+<h2 class="text-lg font-bold text-[#3C3C43]">正在分析体质...</h2>
+<p class="text-xs text-[#8E8E93] mt-2">基于您的健康数据与 中医AI 算法进行匹配</p>
+</div>
+</div>
+<!-- Quiz Step 4 (Result) -->
+<div class="quiz-step" id="step-4">
+<div class="flex-1 flex flex-col items-center">
+<div class="w-20 h-20 bg-[#4CD964] rounded-full shadow-lg flex items-center justify-center mb-6">
+<iconify-icon class="text-white text-4xl" icon="solar:check-read-bold"></iconify-icon>
+</div>
+<h2 class="text-xl font-bold text-[#000000]">测算完成</h2>
+<div class="mt-8 bg-gradient-to-br from-white to-[#F2FDF4] p-6 rounded-[24px] w-full border border-[#D1F2D6] shadow-sm relative overflow-hidden">
+<iconify-icon class="absolute -right-4 -bottom-4 text-7xl text-[#4CD964]/5" icon="solar:leaf-linear"></iconify-icon>
+<span class="text-[10px] font-bold text-[#4CD964] uppercase tracking-widest">您的测试结果 / Result</span>
+<h3 class="text-2xl font-black mt-2 text-[#3C3C43]">阳虚质 (偏向)</h3>
+<div class="h-0.5 w-12 bg-[#4CD964] my-4"></div>
+<p class="text-xs text-[#3C3C43] leading-relaxed">这类体质的人常感到畏寒怕冷，精力不济。建议在春季多进行户外日光照射，并适当补充温阳类的食疗（如：生姜、核桃）。</p>
+</div>
+<div class="mt-8 grid grid-cols-2 gap-4 w-full">
+<div class="bg-white p-3 rounded-2xl border border-[#E5E5EA] text-center">
+<iconify-icon class="text-[#FF3B30] text-xl mb-1" icon="solar:heart-pulse-bold"></iconify-icon>
+<span class="block text-[10px] text-[#8E8E93]">推荐理疗</span>
+<span class="text-xs font-bold">艾灸提阳</span>
+</div>
+<div class="bg-white p-3 rounded-2xl border border-[#E5E5EA] text-center">
+<iconify-icon class="text-[#FF9500] text-xl mb-1" icon="solar:tea-cup-bold"></iconify-icon>
+<span class="block text-[10px] text-[#8E8E93]">推荐茶饮</span>
+<span class="text-xs font-bold">红枣姜茶</span>
+</div>
+</div>
+<a class="mt-12 w-full py-4 bg-[#4CD964] text-white font-bold rounded-[16px] flex items-center justify-center space-x-2 clickable shadow-md" href="index.html">
+<span>保存结果并返回首页</span>
+<iconify-icon icon="solar:alt-arrow-right-linear"></iconify-icon>
+</a>
+</div>
+</div>
+</main>
+<!-- Fixed Bottom Disclaimer -->
+<footer class="p-4 bg-[#F2F2F7] shrink-0">
+<p class="text-[10px] text-[#C7C7CC] text-center leading-relaxed font-medium">此测试基于《中医体质分类与判定》标准，但不作为临床医疗诊断。请遵循医嘱。</p>
+</footer>
+</div>
+<script>
+        function selectOption(btn, step) {
+            // Add selection style
+            const options = btn.parentElement.querySelectorAll('.option-btn');
+            options.forEach(opt => opt.classList.remove('selected'));
+            btn.classList.add('selected');
+
+            // Brief delay for user to see selection
+            setTimeout(() => {
+                nextStep(step);
+                if(step === 3) {
+                    // Start fake report generation
+                    setTimeout(() => nextStep(4), 2000);
+                }
+            }, 400);
+        }
+
+        function nextStep(step) {
+            document.querySelectorAll('.quiz-step').forEach(el => el.classList.remove('active'));
+            const bars = document.querySelectorAll('#quiz-progress div');
+            bars.forEach((bar, idx) => {
+                if (idx < step) {
+                    bar.style.backgroundColor = '#4CD964';
+                    bar.style.opacity = '1';
+                } else {
+                    bar.style.backgroundColor = '#E5E5EA';
+                }
+            });
+            document.getElementById('step-' + step).classList.add('active');
+        }
+    </script>
+</body>
+</html>

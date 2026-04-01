@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Nutrilis - 食谱详情</title>
+<script src="https://modao.cc/agent-py/static/source/js/tailwindcss.3.4.3.js"></script>
+<script src="https://modao.cc/agent-py/static/source/js/iconify-icon.min.1.0.7.js"></script>
+<style>
+        :root {
+            --primary: #A1C298;
+            --secondary: #6B4F4F;
+            --accent: #D4B996;
+            --bg: #F9F9F7;
+        }
+        .app-container { width: 375px; height: 812px; background: var(--bg); border: 8px solid #000; border-radius: 40px; position: relative; overflow: hidden; display: flex; flex-direction: column; }
+        .scrollbox { flex: 1; overflow-y: auto; scroll-behavior: smooth; }
+        .scrollbox::-webkit-scrollbar { display: none; }
+        
+        .clickable { transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); cursor: pointer; }
+        .clickable:active { transform: scale(0.95); opacity: 0.8; }
+        
+        .glass-nav { background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(10px); }
+        .tag { padding: 4px 10px; border-radius: 8px; font-size: 11px; font-weight: 600; }
+        
+        .heart-active { color: #FF4D4D !important; animation: heartBeat 0.4s ease-out; }
+        @keyframes heartBeat {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.3); }
+            100% { transform: scale(1); }
+        }
+
+        .step-card { background: white; border-radius: 16px; padding: 16px; margin-bottom: 12px; border: 1px solid #EEE; }
+        .ingredient-item { display: flex; justify-content: space-between; padding: 12px 16px; background: white; border-radius: 12px; margin-bottom: 8px; border: 1px solid #F0F0F0; }
+    </style>
+</head>
+<body class="bg-gray-100 flex justify-center items-center min-h-screen">
+<div class="app-container">
+<!-- Sticky Header Bar -->
+<div class="absolute top-0 left-0 right-0 z-30 px-4 pt-12 pb-4 flex justify-between items-center bg-gradient-to-b from-black/40 to-transparent">
+<a class="w-10 h-10 rounded-full flex items-center justify-center bg-white/20 backdrop-blur-md clickable" href="recipes.html">
+<iconify-icon class="text-white text-xl" icon="solar:alt-arrow-left-linear"></iconify-icon>
+</a>
+<div class="flex space-x-2">
+<div class="w-10 h-10 rounded-full flex items-center justify-center bg-white/20 backdrop-blur-md clickable">
+<iconify-icon class="text-white text-xl" icon="solar:share-linear"></iconify-icon>
+</div>
+<div class="w-10 h-10 rounded-full flex items-center justify-center bg-white/20 backdrop-blur-md clickable" id="favoriteBtn">
+<iconify-icon class="text-white text-xl" icon="solar:heart-linear" id="heartIcon"></iconify-icon>
+</div>
+</div>
+</div>
+<div class="scrollbox">
+<!-- Hero Section -->
+<div class="relative h-[360px] w-full">
+<img alt="recipe" class="w-full h-full object-cover" id="recipeImage" src="https://modao.cc/agent-py/media/generated_images/2026-03-26/b0523a84d8a246469b9200810e5340a9.jpg"/>
+<div class="absolute inset-0 bg-gradient-to-t from-[#F9F9F7] via-transparent to-transparent"></div>
+</div>
+<!-- Content Container -->
+<div class="px-6 -mt-16 relative z-10">
+<!-- Title Card -->
+<div class="bg-white p-6 rounded-[24px] shadow-sm border border-gray-50">
+<div class="flex flex-wrap gap-2 mb-3">
+<span class="tag bg-[#A1C298]/20 text-[#A1C298]">春季润燥</span>
+<span class="tag bg-[#D4B996]/20 text-[#D4B996]">平和质</span>
+<span class="tag bg-[#6B4F4F]/10 text-[#6B4F4F]">低糖</span>
+</div>
+<h1 class="text-2xl font-bold text-[#333] mb-2" id="recipeTitle">百合马蹄羹</h1>
+<p class="text-sm text-gray-500 leading-relaxed mb-4">Lily Bulb &amp; Water Chestnut Sweet Soup</p>
+<div class="flex items-center justify-between border-t border-gray-50 pt-4">
+<div class="flex items-center space-x-4">
+<div class="flex flex-col">
+<span class="text-[10px] text-gray-400 uppercase tracking-wider">时间</span>
+<span class="text-sm font-semibold text-[#6B4F4F]">25 min</span>
+</div>
+<div class="w-px h-6 bg-gray-100"></div>
+<div class="flex flex-col">
+<span class="text-[10px] text-gray-400 uppercase tracking-wider">难度</span>
+<span class="text-sm font-semibold text-[#6B4F4F]">简单</span>
+</div>
+</div>
+<div class="flex items-center px-3 py-1 bg-orange-50 rounded-lg">
+<iconify-icon class="text-orange-400 mr-1" icon="solar:fire-bold"></iconify-icon>
+<span class="text-sm font-bold text-orange-400">128 kcal</span>
+</div>
+</div>
+</div>
+<!-- Intro -->
+<div class="mt-6">
+<h3 class="text-sm font-bold text-[#6B4F4F] mb-2">功效解析</h3>
+<p class="text-sm text-gray-600 leading-relaxed bg-white p-4 rounded-2xl border border-gray-50">
+                        滋润清余火，养心驻红颜。本品合百合之润肺止咳与马蹄之清热生津，特别适合春燥引起的心神不宁。
+                    </p>
+</div>
+<!-- Tab-like Section: Ingredients -->
+<div class="mt-8">
+<div class="flex items-center justify-between mb-4">
+<h3 class="text-lg font-bold text-[#333]">食材清单</h3>
+<span class="text-xs text-[#A1C298] font-medium">4件食材</span>
+</div>
+<div class="space-y-2">
+<div class="ingredient-item clickable">
+<span class="text-sm font-medium text-gray-700">鲜百合</span>
+<span class="text-sm text-gray-400">100g</span>
+</div>
+<div class="ingredient-item clickable">
+<span class="text-sm font-medium text-gray-700">马蹄 (荸荠)</span>
+<span class="text-sm text-gray-400">6-8个</span>
+</div>
+<div class="ingredient-item clickable">
+<span class="text-sm font-medium text-gray-700">枸杞</span>
+<span class="text-sm text-gray-400">10g</span>
+</div>
+<div class="ingredient-item clickable">
+<span class="text-sm font-medium text-gray-700">老冰糖</span>
+<span class="text-sm text-gray-400">适量</span>
+</div>
+</div>
+</div>
+<!-- Steps -->
+<div class="mt-8">
+<h3 class="text-lg font-bold text-[#333] mb-4">烹饪步骤</h3>
+<div class="step-card clickable">
+<div class="flex items-start gap-4">
+<span class="w-6 h-6 bg-[#A1C298] text-white text-[10px] rounded-full flex items-center justify-center flex-shrink-0 mt-1 font-bold">01</span>
+<div>
+<h4 class="text-sm font-bold text-[#333] mb-1">食材准备</h4>
+<p class="text-xs text-gray-500 leading-relaxed">百合洗净，掰成小瓣；马蹄去皮洗净，切成薄片备用。</p>
+</div>
+</div>
+</div>
+<div class="step-card clickable">
+<div class="flex items-start gap-4">
+<span class="w-6 h-6 bg-[#A1C298] text-white text-[10px] rounded-full flex items-center justify-center flex-shrink-0 mt-1 font-bold">02</span>
+<div>
+<h4 class="text-sm font-bold text-[#333] mb-1">炖煮百合</h4>
+<p class="text-xs text-gray-500 leading-relaxed">砂锅内加入足量清水，大火煮沸后先放入百合。</p>
+</div>
+</div>
+</div>
+<div class="step-card clickable">
+<div class="flex items-start gap-4">
+<span class="w-6 h-6 bg-[#A1C298] text-white text-[10px] rounded-full flex items-center justify-center flex-shrink-0 mt-1 font-bold">03</span>
+<div>
+<h4 class="text-sm font-bold text-[#333] mb-1">加入辅料</h4>
+<p class="text-xs text-gray-500 leading-relaxed">转小火煮10分钟至百合微透明，加入马蹄片和枸杞。</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Disclaimer -->
+<div class="my-10 p-4 bg-gray-100 rounded-2xl border border-dashed border-gray-300">
+<div class="flex items-center gap-2 mb-2 text-[#6B4F4F]">
+<iconify-icon icon="solar:danger-triangle-bold"></iconify-icon>
+<span class="text-xs font-bold">食疗禁忌</span>
+</div>
+<p class="text-[10px] text-gray-500 leading-relaxed">
+                        脾胃虚寒、经常腹泻者不宜多食马蹄。糖尿病患者请勿放置冰糖。本内容仅供参考，不作为医疗诊断依据。
+                    </p>
+</div>
+</div>
+</div>
+</div>
+<script>
+        // Favorite Interactivity
+        const favBtn = document.getElementById('favoriteBtn');
+        const heartIcon = document.getElementById('heartIcon');
+        let isFaved = false;
+        
+        favBtn.onclick = () => {
+            isFaved = !isFaved;
+            if(isFaved) {
+                heartIcon.classList.add('heart-active');
+                heartIcon.setAttribute('icon', 'solar:heart-bold');
+            } else {
+                heartIcon.classList.remove('heart-active');
+                heartIcon.setAttribute('icon', 'solar:heart-linear');
+            }
+        };
+
+        // Handle URL Params for Dynamic Content (Basic Mock)
+        const urlParams = new URLSearchParams(window.location.search);
+        const recipeId = urlParams.get('id');
+        if(recipeId === '2') {
+            document.getElementById('recipeTitle').innerText = '当归补血汤';
+            document.getElementById('recipeImage').src = '/agent-py/media/generated_images/2026-03-26/1ef8f480da0f4410931238699119934a.jpg';
+        }
+    </script>
+</body>
+</html>

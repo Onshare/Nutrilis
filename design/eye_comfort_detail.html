@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>眼部舒缓详情 - Nutrilis</title>
+<script src="https://modao.cc/agent-py/static/source/js/tailwindcss.3.4.3.js"></script>
+<script src="https://modao.cc/agent-py/static/source/js/iconify-icon.min.1.0.7.js"></script>
+<style>
+        :root { --primary: #A1C298; --secondary: #6B4F4F; --accent: #D4B996; --bg: #F9F9F7; }
+        .app-container { width: 375px; height: 812px; background: var(--bg); border: 8px solid #000; border-radius: 40px; position: relative; overflow: hidden; display: flex; flex-direction: column; margin: auto; }
+        .scrollbox { flex: 1; overflow-y: auto; padding-bottom: 40px; }
+        .scrollbox::-webkit-scrollbar { display: none; }
+        .btn-back { width: 40px; height: 40px; border-radius: 12px; background: white; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+        .section-card { background: white; border-radius: 24px; padding: 20px; margin-bottom: 16px; border: 1px solid rgba(161, 194, 152, 0.2); }
+        .tag { font-size: 10px; padding: 2px 8px; border-radius: 6px; font-weight: bold; }
+        .clickable:active { transform: scale(0.95); }
+    </style>
+</head>
+<body class="bg-gray-100 flex justify-center items-center min-h-screen">
+<div class="app-container">
+<!-- Sticky Header -->
+<header class="px-6 pt-12 pb-4 flex justify-between items-center bg-white/80 backdrop-blur-md z-10">
+<a class="btn-back clickable" href="therapy.html">
+<iconify-icon class="text-xl text-gray-700" icon="solar:alt-arrow-left-linear"></iconify-icon>
+</a>
+<h1 class="text-lg font-bold text-gray-800 lang-zh">眼部舒缓</h1>
+<h1 class="text-lg font-bold text-gray-800 lang-en hidden">Eye Comfort</h1>
+<button class="btn-back clickable" onclick="toggleFavorite(this)">
+<iconify-icon class="text-xl text-gray-400" icon="solar:heart-linear" id="fav-icon"></iconify-icon>
+</button>
+</header>
+<div class="scrollbox px-6 pt-4">
+<!-- Hero Image -->
+<div class="w-full h-48 rounded-3xl overflow-hidden mb-6 shadow-sm">
+<img alt="Eye Care" class="w-full h-full object-cover" src="https://modao.cc/agent-py/media/generated_images/2026-03-26/29517e6aece34eb792d2ec28134268e3.jpg"/>
+</div>
+<!-- Content -->
+<div class="section-card">
+<h2 class="text-[#6B4F4F] font-bold mb-2 flex items-center gap-2">
+<iconify-icon class="text-[#A1C298]" icon="solar:magnifer-zoom-in-bold"></iconify-icon>
+<span class="lang-zh">基本原理</span><span class="lang-en hidden">Principles</span>
+</h2>
+<p class="text-gray-500 text-sm leading-relaxed lang-zh">通过针对睛明、攒竹、太阳等眼周关键穴位的按摩与温敷，调节睫状肌紧张状态，促进眼周血液循环，恢复泪膜稳定性。</p>
+<p class="text-gray-500 text-sm leading-relaxed lang-en hidden">By massaging and warming key acupoints around the eyes, it adjusts the tension of ciliary muscles and promotes blood circulation.</p>
+</div>
+<div class="section-card">
+<h2 class="text-[#6B4F4F] font-bold mb-2 flex items-center gap-2">
+<iconify-icon class="text-[#A1C298]" icon="solar:check-circle-bold"></iconify-icon>
+<span class="lang-zh">适宜情况</span><span class="lang-en hidden">Indications</span>
+</h2>
+<ul class="text-sm text-gray-500 space-y-1 list-disc list-inside">
+<li class="lang-zh">长时间使用电子屏幕导致的视疲劳</li>
+<li class="lang-en hidden">Eye strain from long screen time</li>
+<li class="lang-zh">季节性眼干、眼涩</li>
+<li class="lang-en hidden">Seasonal dry eyes</li>
+<li class="lang-zh">熬夜后的眼周浮肿</li>
+<li class="lang-en hidden">Puffiness after staying up late</li>
+</ul>
+</div>
+<div class="section-card bg-red-50/30 border-red-100">
+<h2 class="text-red-700 font-bold mb-2 flex items-center gap-2">
+<iconify-icon icon="solar:danger-bold"></iconify-icon>
+<span class="lang-zh">禁忌人群</span><span class="lang-en hidden">Contraindications</span>
+</h2>
+<p class="text-xs text-red-600/80 leading-relaxed lang-zh">眼部急性炎症（如结膜炎）、刚完成眼科手术者、高度近视视网膜病变风险期人群禁用。</p>
+<p class="text-xs text-red-600/80 leading-relaxed lang-en hidden">Contraindicated for acute eye inflammation, post-eye surgery, and high myopia with retinal risk.</p>
+</div>
+<div class="section-card">
+<h2 class="text-[#6B4F4F] font-bold mb-2 flex items-center gap-2">
+<iconify-icon class="text-[#D4B996]" icon="solar:notes-bold"></iconify-icon>
+<span class="lang-zh">注意事项</span><span class="lang-en hidden">Precautions</span>
+</h2>
+<p class="text-sm text-gray-500 lang-zh">手法需轻柔，忌暴力按压球体；建议佩戴隐形眼镜者摘除后进行；环境光线宜柔和。</p>
+<p class="text-sm text-gray-500 lang-en hidden">Use gentle movements; avoid pressing the eyeball directly; remove contact lenses before practice.</p>
+</div>
+<div class="p-4 bg-[#A1C298]/10 rounded-2xl border-l-4 border-[#A1C298]">
+<h4 class="text-xs font-bold text-[#6B4F4F] mb-1">💡 <span class="lang-zh">科普小知识</span><span class="lang-en hidden">Health Tip</span></h4>
+<p class="text-[11px] text-[#6B4F4F]/80 lang-zh">“20-20-20”原则：每看屏幕20分钟，应抬头远眺20英尺（约6米）外20秒，能有效预防假性近视。</p>
+<p class="text-[11px] text-[#6B4F4F]/80 lang-en hidden">Rule: Every 20 mins of screen time, look 20 feet away for 20 seconds.</p>
+</div>
+</div>
+<!-- Float Lang Switch -->
+<button class="fixed bottom-10 right-10 w-12 h-12 bg-[#6B4F4F] text-white rounded-full shadow-lg flex items-center justify-center text-xs font-bold z-30" onclick="toggleLang()">
+            EN/中
+        </button>
+</div>
+<script>
+        function toggleFavorite(btn) {
+            const icon = document.getElementById('fav-icon');
+            if (icon.getAttribute('icon') === 'solar:heart-linear') {
+                icon.setAttribute('icon', 'solar:heart-bold');
+                icon.classList.remove('text-gray-400');
+                icon.classList.add('text-red-500');
+            } else {
+                icon.setAttribute('icon', 'solar:heart-linear');
+                icon.classList.remove('text-red-500');
+                icon.classList.add('text-gray-400');
+            }
+        }
+
+        function toggleLang() {
+            const zh = document.querySelectorAll('.lang-zh');
+            const en = document.querySelectorAll('.lang-en');
+            zh.forEach(el => el.classList.toggle('hidden'));
+            en.forEach(el => el.classList.toggle('hidden'));
+        }
+    </script>
+</body>
+</html>

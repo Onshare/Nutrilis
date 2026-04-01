@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Nutrilis - 每日建议详情</title>
+<script src="https://modao.cc/agent-py/static/source/js/tailwindcss.3.4.3.js"></script>
+<script src="https://modao.cc/agent-py/static/source/js/iconify-icon.min.1.0.7.js"></script>
+<style>
+        :root { --primary: #A1C298; --secondary: #6B4F4F; --accent: #D4B996; --bg: #F9F9F7; }
+        .app-container { width: 375px; height: 812px; background: #FFF; border: 8px solid #000; border-radius: 40px; position: relative; overflow: hidden; display: flex; flex-direction: column; }
+        .scrollbox { flex: 1; overflow-y: auto; padding-bottom: 40px; }
+        .scrollbox::-webkit-scrollbar { display: none; }
+        .clickable { transition: all 0.2s; cursor: pointer; }
+        .clickable:active { transform: scale(0.95); opacity: 0.8; }
+        .glass-header { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(10px); position: sticky; top: 0; z-index: 50; }
+    </style>
+</head>
+<body class="bg-gray-100 flex justify-center items-center min-h-screen">
+<div class="app-container">
+<header class="glass-header h-[88px] pt-10 px-4 flex items-center border-b border-gray-100">
+<a class="w-10 h-10 flex items-center justify-center rounded-full bg-gray-50 clickable" href="index.html">
+<iconify-icon class="text-xl text-gray-800" icon="solar:alt-arrow-left-linear"></iconify-icon>
+</a>
+<h1 class="ml-4 font-bold text-lg text-gray-800">每日健康建议</h1>
+</header>
+<div class="scrollbox p-6">
+<div class="mb-8">
+<div class="flex items-center gap-2 mb-2">
+<span class="px-2 py-0.5 bg-[#A1C298]/20 text-[#A1C298] text-[10px] font-bold rounded">2026-03-26</span>
+<span class="px-2 py-0.5 bg-[#D4B996]/20 text-[#D4B996] text-[10px] font-bold rounded">滋补提醒</span>
+</div>
+<h2 class="text-2xl font-bold text-gray-900 mb-4">春季润燥：推荐银耳百合羹</h2>
+<img class="w-full h-48 object-cover rounded-2xl mb-6 shadow-sm" src="https://modao.cc/agent-py/media/generated_images/2026-03-26/75e50f87e33841609b559f7e890063c5.jpg"/>
+<div class="space-y-4 text-gray-600 text-sm leading-relaxed">
+<p>根据您的近期数据分析，当地空气湿度较低（34%），且您最近饮水量略低于推荐值。结合当前“春分”节气，建议适量摄入滋阴润燥食物。</p>
+<p class="font-bold text-[#6B4F4F]">为什么推荐银耳百合？</p>
+<p>银耳素有“平民燕窝”之称，富含天然植物胶质，能增强人体免疫力；百合则有清心安神、润肺止咳之效。二者合用，乃春季润肤养颜、缓解燥火之佳品。</p>
+</div>
+</div>
+<div class="p-6 bg-[#F9F9F7] rounded-3xl border border-[#F0F0EE]">
+<h3 class="font-bold text-[#6B4F4F] mb-3 flex items-center gap-2">
+<iconify-icon icon="solar:lightbulb-bolt-bold"></iconify-icon>
+                    生活小贴士
+                </h3>
+<ul class="space-y-3 text-xs text-gray-500">
+<li class="flex gap-2">
+<span class="text-[#A1C298] font-bold">•</span>
+<span>早起一杯温开水，唤醒肠胃。</span>
+</li>
+<li class="flex gap-2">
+<span class="text-[#A1C298] font-bold">•</span>
+<span>办公室内建议放置加湿器。</span>
+</li>
+<li class="flex gap-2">
+<span class="text-[#A1C298] font-bold">•</span>
+<span>晚间22点前入睡，有助于肝脏排毒。</span>
+</li>
+</ul>
+</div>
+<div class="mt-8">
+<a class="flex items-center justify-between p-4 bg-white border border-gray-100 rounded-2xl shadow-sm clickable" href="recipe-detail.html">
+<div class="flex items-center gap-3">
+<div class="w-12 h-12 bg-[#A1C298]/10 rounded-xl flex items-center justify-center">
+<iconify-icon class="text-2xl text-[#A1C298]" icon="solar:tea-cup-bold"></iconify-icon>
+</div>
+<div>
+<p class="text-sm font-bold text-gray-800">查看配套食谱</p>
+<p class="text-[10px] text-gray-400">银耳百合羹详细做法</p>
+</div>
+</div>
+<iconify-icon class="text-gray-300" icon="solar:alt-arrow-right-linear"></iconify-icon>
+</a>
+</div>
+</div>
+</div>
+</body>
+</html>
