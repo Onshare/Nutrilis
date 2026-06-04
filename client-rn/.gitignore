@@ -1,0 +1,19 @@
+# Expo
+.expo/
+dist/
+web-build/
+
+# dependencies
+node_modules/
+
+# native
+ios/Pods/
+android/.gradle/
+android/app/build/
+
+# IDE
+.idea/
+.vscode/
+
+# OS
+.DS_Store
