@@ -5,6 +5,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { BasePage } from '@/components/BasePage';
 import { Colors, Typography, Radius, Spacing } from '@/core/theme';
 import { useQuizStore } from '@/stores/useQuizStore';
+import { useLocale } from '@/core/i18n/useLocale';
 
 /**
  * 测评结果页
@@ -12,6 +13,7 @@ import { useQuizStore } from '@/stores/useQuizStore';
  */
 export default function QuizResultScreen() {
   const router = useRouter();
+  const { isZh } = useLocale();
   const result = useQuizStore((s) => s.result);
   const resultStatus = useQuizStore((s) => s.resultStatus);
 
@@ -31,12 +33,12 @@ export default function QuizResultScreen() {
             style={styles.icon}
           />
 
-          <Text style={styles.label}>你的体质类型</Text>
+          <Text style={styles.label}>{isZh ? '你的体质类型' : 'Your Constitution Type'}</Text>
           <Text style={styles.resultText}>{result.result}</Text>
 
           <View style={styles.divider} />
 
-          <Text style={styles.label}>养生建议</Text>
+          <Text style={styles.label}>{isZh ? '养生建议' : 'Health Advice'}</Text>
           <Text style={styles.advice}>{result.advice}</Text>
 
           {/* Navigation buttons */}
@@ -47,7 +49,7 @@ export default function QuizResultScreen() {
               activeOpacity={0.7}
             >
               <Ionicons name="restaurant-outline" size={20} color={Colors.surface} />
-              <Text style={styles.primaryBtnText}>查看食谱推荐</Text>
+              <Text style={styles.primaryBtnText}>{isZh ? '查看食谱推荐' : 'View Recipes'}</Text>
             </TouchableOpacity>
 
             <TouchableOpacity
@@ -56,7 +58,7 @@ export default function QuizResultScreen() {
               activeOpacity={0.7}
             >
               <Ionicons name="fitness-outline" size={20} color={Colors.secondary} />
-              <Text style={styles.secondaryBtnText}>查看理疗方案</Text>
+              <Text style={styles.secondaryBtnText}>{isZh ? '查看理疗方案' : 'View Therapy'}</Text>
             </TouchableOpacity>
           </View>
         </View>

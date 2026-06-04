@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { BasePage } from '@/components/BasePage';
+import { DisclaimerCard } from '@/components/DisclaimerCard';
 import { Colors, Typography, Radius, Spacing, MIN_TOUCH_TARGET } from '@/core/theme';
 import { AppConstants } from '@/core/constants';
 import { useLocale } from '@/core/i18n/useLocale';
@@ -18,21 +19,38 @@ export default function SettingsScreen() {
       {/* Language */}
       <TouchableOpacity style={styles.row} onPress={toggleLocale} activeOpacity={0.7}>
         <Ionicons name="language-outline" size={22} color={Colors.title} />
-        <Text style={styles.label}>语言 / Language</Text>
-        <Text style={styles.value}>{isZh ? '中文' : 'English'}</Text>
+        <Text style={styles.label}>{isZh ? '语言' : 'Language'}</Text>
+        <Text style={styles.value}>
+          {isZh ? '简体中文 / English' : 'English / 简体中文'}
+        </Text>
       </TouchableOpacity>
 
       {/* Version */}
       <View style={styles.row}>
         <Ionicons name="information-circle-outline" size={22} color={Colors.title} />
-        <Text style={styles.label}>版本</Text>
-        <Text style={styles.value}>1.0.0</Text>
+        <Text style={styles.label}>{isZh ? '版本信息' : 'Version'}</Text>
+        <Text style={styles.value}>Nutrilis 1.0.0</Text>
       </View>
 
+      {/* Policies & Disclaimer */}
+      <TouchableOpacity style={styles.row} activeOpacity={0.7}>
+        <Ionicons name="shield-checkmark-outline" size={22} color={Colors.title} />
+        <View style={styles.infoCol}>
+          <Text style={styles.label}>
+            {isZh ? '协议与免责声明' : 'Policies & Disclaimer'}
+          </Text>
+          <Text style={styles.subtitle}>
+            {isZh
+              ? '登录即代表同意平台协议与隐私说明。'
+              : 'Signing in means you agree to the platform policies.'}
+          </Text>
+        </View>
+        <Ionicons name="chevron-forward" size={18} color={Colors.border} />
+      </TouchableOpacity>
+
       {/* Disclaimer */}
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>免责声明</Text>
-        <Text style={styles.body}>{AppConstants.defaultDisclaimer}</Text>
+      <View style={styles.disclaimerWrap}>
+        <DisclaimerCard text={AppConstants.defaultDisclaimer} />
       </View>
     </BasePage>
   );
@@ -60,20 +78,15 @@ const styles = StyleSheet.create({
     ...Typography.bodyMedium,
     color: Colors.body,
   },
-  section: {
+  subtitle: {
+    ...Typography.bodySmall,
+    color: Colors.body,
+    marginTop: 2,
+  },
+  infoCol: {
+    flex: 1,
+  },
+  disclaimerWrap: {
     marginTop: Spacing.xxl,
-    padding: Spacing.xxl,
-    backgroundColor: Colors.surface,
-    borderRadius: Radius.card,
-    borderWidth: 1,
-    borderColor: Colors.border,
-  },
-  sectionTitle: {
-    ...Typography.titleMedium,
-    marginBottom: Spacing.sm,
-  },
-  body: {
-    ...Typography.bodyMedium,
-    lineHeight: 20,
   },
 });

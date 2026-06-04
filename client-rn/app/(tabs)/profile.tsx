@@ -3,6 +3,7 @@ import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { BasePage } from '@/components/BasePage';
+import { DisclaimerCard } from '@/components/DisclaimerCard';
 import { Colors, Typography, Radius, Spacing, MIN_TOUCH_TARGET } from '@/core/theme';
 import { useLocale } from '@/core/i18n/useLocale';
 import { useAppStore } from '@/stores/useAppStore';
@@ -103,6 +104,10 @@ export default function ProfileScreen() {
           </TouchableOpacity>
         ))}
       </View>
+
+      <View style={styles.disclaimerWrap}>
+        <DisclaimerCard text="本内容仅为养生科普，不替代医疗诊断与治疗方案" />
+      </View>
     </BasePage>
   );
 }
@@ -171,5 +176,8 @@ const styles = StyleSheet.create({
     ...Typography.bodyLarge,
     color: Colors.title,
     flex: 1,
+  },
+  disclaimerWrap: {
+    marginTop: Spacing.xxl,
   },
 });

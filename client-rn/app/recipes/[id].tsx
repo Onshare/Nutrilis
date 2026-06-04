@@ -1,9 +1,8 @@
-import { useLocalSearchParams, useRouter } from 'expo-router';
+import { useLocalSearchParams } from 'expo-router';
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { BasePage } from '@/components/BasePage';
-import { DisclaimerCard } from '@/components/DisclaimerCard';
 import { Colors, Typography, Radius, Spacing } from '@/core/theme';
 import { useLocale } from '@/core/i18n/useLocale';
 import { useAppStore } from '@/stores/useAppStore';
@@ -17,7 +16,6 @@ import type { RecipeDetailVO } from '@/models/vo/recipe.vo';
  */
 export default function RecipeDetailScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
-  const router = useRouter();
   const { locale } = useLocale();
   const isZh = locale === 'zh';
   const favoriteIds = useAppStore((s) => s.favoriteIds);

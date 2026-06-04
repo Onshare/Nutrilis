@@ -2,17 +2,18 @@ import { useRouter } from 'expo-router';
 import React, { useEffect } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { BasePage } from '@/components/BasePage';
+import { DisclaimerCard } from '@/components/DisclaimerCard';
 import { Colors, Typography, Radius, Spacing, MIN_TOUCH_TARGET } from '@/core/theme';
 import { useLocale } from '@/core/i18n/useLocale';
 import { useQuizStore } from '@/stores/useQuizStore';
 
 /**
  * 体质自测页
- * 对标 Flutter QuizPage
+ * 对标 Flutter QuizPage (单题分步模式)
  */
 export default function QuizScreen() {
   const router = useRouter();
-  const { locale } = useLocale();
+  const { locale, isZh } = useLocale();
   const {
     questions,
     loadStatus,
@@ -52,6 +53,13 @@ export default function QuizScreen() {
     >
       {question && (
         <View style={styles.content}>
+          {/* Instruction */}
+          <Text style={styles.intro}>
+            {isZh
+              ? '请根据最近两周的状态完成体质自测。'
+              : 'Answer the questionnaire based on your recent two weeks.'}
+          </Text>
+
           {/* Progress */}
           <Text style={styles.progress}>
             {currentIndex + 1} / {questions.length}
@@ -91,11 +99,18 @@ export default function QuizScreen() {
             })}
           </View>
 
+          {/* Submit error */}
+          {resultStatus === 'error' && errorMessage ? (
+            <Text style={styles.submitError}>{errorMessage}</Text>
+          ) : null}
+
           {/* Navigation */}
           <View style={styles.nav}>
             {currentIndex > 0 && (
               <TouchableOpacity style={styles.navBtn} onPress={prevQuestion}>
-                <Text style={styles.navBtnText}>上一题</Text>
+                <Text style={styles.navBtnText}>
+                  {isZh ? '上一题' : 'Previous'}
+                </Text>
               </TouchableOpacity>
             )}
 
@@ -106,7 +121,9 @@ export default function QuizScreen() {
                 disabled={!allAnswered}
               >
                 <Text style={styles.submitText}>
-                  {resultStatus === 'loading' ? '提交中...' : '提交测评'}
+                  {resultStatus === 'loading'
+                    ? (isZh ? '提交中...' : 'Submitting...')
+                    : (isZh ? '查看结果' : 'View Result')}
                 </Text>
               </TouchableOpacity>
             ) : (
@@ -114,9 +131,16 @@ export default function QuizScreen() {
                 style={[styles.navBtn, styles.nextBtn]}
                 onPress={nextQuestion}
               >
-                <Text style={styles.nextText}>下一题</Text>
+                <Text style={styles.nextText}>
+                  {isZh ? '下一题' : 'Next'}
+                </Text>
               </TouchableOpacity>
             )}
+          </View>
+
+          {/* Disclaimer */}
+          <View style={styles.disclaimerWrap}>
+            <DisclaimerCard text="本内容仅为养生科普，不替代医疗诊断与治疗方案" />
           </View>
         </View>
       )}
@@ -126,6 +150,12 @@ export default function QuizScreen() {
 
 const styles = StyleSheet.create({
   content: { paddingTop: Spacing.lg },
+  intro: {
+    ...Typography.bodyLarge,
+    color: Colors.body,
+    marginBottom: Spacing.xl,
+    lineHeight: 23,
+  },
   progress: { ...Typography.bodySmall, color: Colors.body, marginBottom: Spacing.sm },
   progressBar: {
     height: 4,
@@ -142,7 +172,7 @@ const styles = StyleSheet.create({
     ...Typography.headlineSmall,
     marginBottom: Spacing.xxl,
   },
-  options: { gap: Spacing.md, marginBottom: Spacing.xxl },
+  options: { gap: Spacing.md, marginBottom: Spacing.xl },
   option: {
     borderWidth: 1.5,
     borderColor: Colors.border,
@@ -159,6 +189,12 @@ const styles = StyleSheet.create({
   optionTextSelected: {
     color: Colors.primary,
     fontWeight: '600',
+  },
+  submitError: {
+    ...Typography.bodySmall,
+    color: Colors.danger,
+    textAlign: 'center',
+    marginBottom: Spacing.md,
   },
   nav: {
     flexDirection: 'row',
@@ -185,4 +221,7 @@ const styles = StyleSheet.create({
   submitText: { color: Colors.surface, fontWeight: '700', fontSize: 16 },
   nextText: { color: Colors.surface, fontWeight: '700', fontSize: 16 },
   btnDisabled: { opacity: 0.5 },
+  disclaimerWrap: {
+    marginTop: Spacing.xxl,
+  },
 });

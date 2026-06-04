@@ -6,6 +6,7 @@ import { BasePage } from '@/components/BasePage';
 import { NutrilisSurface } from '@/components/NutrilisSurface';
 import { Colors, Typography, Radius, Spacing } from '@/core/theme';
 import { useAppStore } from '@/stores/useAppStore';
+import { useLocale } from '@/core/i18n/useLocale';
 
 /**
  * 浏览历史
@@ -13,11 +14,12 @@ import { useAppStore } from '@/stores/useAppStore';
  */
 export default function HistoryScreen() {
   const router = useRouter();
+  const { isZh } = useLocale();
   const history = useAppStore((s) => s.history);
   const isEmpty = history.length === 0;
 
   return (
-    <BasePage empty={isEmpty} emptyMessage="暂无浏览记录">
+    <BasePage empty={isEmpty} emptyMessage={isZh ? '暂无浏览历史' : 'No history yet'}>
       {history.map((entry) => (
         <TouchableOpacity
           key={entry.id}
